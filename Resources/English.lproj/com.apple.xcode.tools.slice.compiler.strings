@@ -1,0 +1,43 @@
+// **********************************************************************
+//
+// Copyright (c) 2003-2015 ZeroC, Inc. All rights reserved.
+//
+// This copy of Ice Touch is licensed to you under the terms described in the
+// ICE_TOUCH_LICENSE file included in this distribution.
+//
+// **********************************************************************/
+
+"[Slice]-category" = "Slice - code generation";
+
+"[SLICE_CPP_FLAG]-name" = "Translate C++ code";
+"[SLICE_CPP_FLAG]-description" = "Generate C++ code from Slice files.";
+
+"[SLICE_ICE_FLAG]-name" = "Permit `Ice' prefix";
+"[SLICE_ICE_FLAG]-description" = "Permit `Ice' prefix (for building Ice source code only).";
+
+"[SLICE_STREAM_FLAG]-name" = "Streaming support";
+"[SLICE_STREAM_FLAG]-description" = "Generate marshaling support for stream API.";
+
+"[SLICE_CHECKSUM_FLAG]-name" = "Checksum support";
+"[SLICE_CHECKSUM_FLAG]-description" = "Generate checksums for Slice definitions.";
+
+"[SLICE_UNDERSCORE_FLAG]-name" = "Underscore support";
+"[SLICE_UNDERSCORE_FLAG]-description" = "Permit underscores in Slice identifiers.";
+
+"[SLICE_INCLUDE_PATH]-name" = "Header Search Paths";
+"[SLICE_INCLUDE_PATH]-description" = "The path to search for Slice files.";
+
+"[SLICE_INCLUDE_DIR]-name" = "Header Directory";
+"[SLICE_INCLUDE_DIR]-description" = "Use specified directory as the header include directory in source files.";
+
+"[SLICE_OUTPUT_DIR]-name" = "Output Directory";
+"[SLICE_OUTPUT_DIR]-description" = "The path to output directory for generated files.";
+
+"[SLICE_PREPROCESSOR_DEFINITIONS]-name" = "Preprocessor Macros";
+"[SLICE_PREPROCESSOR_DEFINITIONS]-description" = "Preprocessor macros used by the Slice compiler.";
+
+"[SLICE_ICE_HOME]-name" = "Ice Home";
+"[SLICE_ICE_HOME]-description" = "The location of your Ice installation.";
+
+"[SLICE_LINK_WITH_SERVICES]-name" = "Link with Ice services client libraries";
+"[SLICE_LINK_WITH_SERVICES]-description" = "Link with Glacier2, IceStorm and IceGrid client libraries.";

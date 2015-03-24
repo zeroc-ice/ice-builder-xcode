@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>English</string>
+	<key>CFBundleExecutable</key>
+	<string>${EXECUTABLE_NAME}</string>
+	<key>CFBundleIconFile</key>
+	<string></string>
+	<key>CFBundleIdentifier</key>
+	<string>com.zeroc.${PRODUCT_NAME:identifier}</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>${PRODUCT_NAME}</string>
+	<key>CFBundlePackageType</key>
+	<string>BNDL</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleVersion</key>
+	<string>1.0</string>
+	<key>LoadAtLaunch</key>
+	<string>YES</string>
+	<key>NSPrincipalClass</key>
+	<string></string>
+	<key>XCGCReady</key>
+	<string>YES</string>
+	<key>XCPluginHasUI</key>
+	<string>NO</string>
+	<key>XC4Compatible</key>
+	<true/>
+	<key>DVTPlugInCompatibilityUUIDs</key>
+	<array>
+		<!-- Xcode 5.0 -->
+		<string>37B30044-3B14-46BA-ABAA-F01000C27B63</string>
+		<!-- Xcode 5.1 -->
+		<string>A2E4D43F-41F4-4FB9-BB94-7177011C9AED</string>
+		<!-- Xcode 6.0 -->
+		<string>C4A681B0-4A26-480E-93EC-1218098B9AA0</string>
+        <!-- Xcode 6.2 -->
+        <string>A16FF353-8441-459E-A50C-B071F53F51B7</string>
+	</array>
+</dict>
+</plist>

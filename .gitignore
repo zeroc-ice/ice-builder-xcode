@@ -1,0 +1,5 @@
+# Ignore objects and archives.
+project.xcworkspace
+xcuserdata
+xcshareddata
+build

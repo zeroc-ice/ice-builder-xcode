@@ -1,0 +1,147 @@
+(
+{
+        Identifier = "com.apple.xcode.tools.slice.compiler";
+	Type = Tool;
+	Class = "SliceCompilerSpecification";
+	Name = Slice;
+	Description = "Slice Parser Generator";
+        ExecDescription = "Slice2ObjC $(InputFile)";
+	InputFileTypes = (sourcecode.slice);
+	CommandOutputParser = (
+		(
+			"^([^:]+):([0-9]+): warning: (.*)$",
+			"emit-warning",
+		),
+		(
+			"^([^:]+):([0-9]+): (.*)$",
+			"emit-error",
+		),
+		(
+			"errors in preprocessor",
+			ignore,
+		),
+		(
+			"error in preprocessor",
+			ignore,
+		),
+	);
+	Options = (
+		{
+			Name = Input;
+			Type = stringlist;
+			CommandLineArgs = (
+				"$(value)",
+			);
+			InputDependencies = "$(Input)";
+			IsCommandInput = YES;
+		},
+		{
+			Name = "SLICE_CPP_FLAG";
+			Type = Boolean;
+			DefaultValue = NO;
+			Category = Slice;
+		},
+		{
+			Name = "SLICE_ICE_FLAG";
+			Type = Boolean;
+			DefaultValue = NO;
+			CommandLineArgs = {
+				NO = ();
+				YES = (
+					"--ice",
+				);
+			};
+			Category = Slice;
+		},
+		{
+			Name = "SLICE_STREAM_FLAG";
+			Type = Boolean;
+			DefaultValue = NO;
+			CommandLineArgs = {
+				NO = ();
+				YES = (
+					"--stream",
+				);
+			};
+			Category = Slice;
+		},
+		{
+			Name = "SLICE_CHECKSUM_FLAG";
+			Type = Boolean;
+			DefaultValue = NO;
+			CommandLineArgs = {
+				NO = ();
+				YES = (
+					"--checksum",
+				);
+			};
+			Category = Slice;
+		},
+		{
+			Name = "SLICE_UNDERSCORE_FLAG";
+			Type = Boolean;
+			DefaultValue = NO;
+			CommandLineArgs = {
+				NO = ();
+				YES = (
+					"--underscore",
+				);
+			};
+			Category = Slice;
+		},
+		{
+			Name = "SLICE_LINK_WITH_SERVICES";
+			Type = Boolean;
+			DefaultValue = "YES";
+			Category = Slice;
+		},
+		{
+			Name = "SLICE_OUTPUT_DIR";
+			Type = Path;
+			DefaultValue = "$(DERIVED_FILE_DIR)";
+			CommandLineArgs = (
+				"--output-dir",
+				"$(value)",
+			);
+			Category = Slice;
+		},
+		{
+			Name = "SLICE_INCLUDE_DIR";
+			Type = Path;
+			DefaultValue = "";
+			CommandLineArgs = (
+				"--include-dir",
+				"$(value)",
+			);
+			Category = Slice;
+		},
+		{
+			Name = "SLICE_INCLUDE_PATH";
+			Type = PathList;
+			DefaultValue = "";
+			CommandLineArgs = (
+				"-I",
+				"$(value)",
+			);
+			Category = Slice;
+		},
+		{
+			Name = "SLICE_PREPROCESSOR_DEFINITIONS";
+			Type = StringList;
+			"CommandLinePrefixFlag" = "-D";
+			Category = Slice;
+		},
+		{
+			Name = "SLICE_ICE_HOME";
+			Type = String;
+			DefaultValue = "";
+			Category = Slice;
+		},
+	);
+	OptionCategories = (
+		{
+			Name = Slice;
+			IconName = "PBX-option-build";
+		},
+	);
+})
