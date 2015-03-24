@@ -5,7 +5,7 @@ The Xcode plug-in manages all aspects of code generation, including automaticall
 
 ## Install
 
-We recommand using Alcatraz (http://alcatraz.io) to install the plug-in. Look for SliceCompilerPlugin in the Alcatraz package list and click Install.
+We recommend using Alcatraz (http://alcatraz.io) to install the plug-in. Look for SliceCompilerPlugin in the Alcatraz package list and click Install.
 
 If not using Alcatraz, open and build the SliceCompilerPlugin project from this repository to install the Slice Compiler Xcode Plugin-In in ~/Library/Application Support/Developer/Shared/Xcode/Plug-ins. Restart Xcode after the plug-in installation to load it. To uninstall the plug-in remove SliceCompilerPlugin.xcplugin from ~/Library/Application Support/Developer/Shared/Xcode/Plug-ins.
 
