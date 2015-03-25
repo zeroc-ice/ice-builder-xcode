@@ -2,8 +2,8 @@
 //
 // Copyright (c) 2003-2015 ZeroC, Inc. All rights reserved.
 //
-// This copy of Ice Touch is licensed to you under the terms described in the
-// ICE_TOUCH_LICENSE file included in this distribution.
+// This copy of Ice Touch is licensed to you under the terms described
+// in the ICE_TOUCH_LICENSE file included in this distribution.
 //
 // **********************************************************************
 
@@ -193,7 +193,7 @@
             );
         };
     },
-    
+
     {
         Identifier = "xcode.lang.slice.exception.name";
         Syntax = {
@@ -204,7 +204,7 @@
             Type = "xcode.syntax.name.partial";
         };
     },
-    
+
     {
         Identifier = "xcode.lang.slice.exception.declarator.extends";
         Syntax = {
@@ -215,7 +215,7 @@
             );
         };
     },
-    
+
     {
         Identifier = "xcode.lang.slice.exception.block";
         Syntax = {
@@ -290,7 +290,7 @@
             );
         };
     },
-    
+
     {
         Identifier = "xcode.lang.slice.qualifiedname.more";
         Syntax = {
@@ -348,7 +348,7 @@
             );
         };
     },
-    
+
     {
         Identifier = "xcode.lang.slice.class.name";
         Syntax = {
@@ -359,7 +359,7 @@
             Type = "xcode.syntax.name.partial";
         };
     },
-    
+
     {
         Identifier = "xcode.lang.slice.class.declarator.extends";
         Syntax = {
@@ -370,7 +370,7 @@
             );
         };
     },
-    
+
     {
         Identifier = "xcode.lang.slice.class.declarator.implements";
         Syntax = {
@@ -438,7 +438,7 @@
             Type = "xcode.syntax.definition.method";
         };
     },
-    
+
     {
         Identifier = "xcode.lang.slice.method.declarator";
         Syntax = {
@@ -450,7 +450,7 @@
             Type = "xcode.syntax.name.partial";
         };
     },
-    
+
     {
         Identifier = "xcode.lang.slice.method.declarator.throws";
         Syntax = {
@@ -598,10 +598,10 @@
             Start = "#";
             EscapeChar = "\\";
             End = "\n";
-            
+
             // only recognize the '#' if it's the first non-whitespace on a line
             StartAtBOL = YES;
-            
+
             // multi-line comments extend the preprocessor statement across lines too
             Tokenizer = "xcode.lang.slice.preprocessor.lexer";
             IncludeRules = (
@@ -665,7 +665,7 @@
             AltType = "xcode.syntax.preprocessor.identifier";
         };
     },
- 
+
     {
         Identifier = "xcode.lang.slice.preprocessor.mark";
         Syntax = {

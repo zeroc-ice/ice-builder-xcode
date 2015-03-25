@@ -1,3 +1,4 @@
 # Ignore objects and archives.
 xcuserdata
 build
+project.xcworkspace

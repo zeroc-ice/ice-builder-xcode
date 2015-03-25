@@ -23,7 +23,7 @@
 	<key>LoadAtLaunch</key>
 	<string>YES</string>
 	<key>NSPrincipalClass</key>
-	<string></string>
+	<string>IceTouchPlugin</string>
 	<key>XCGCReady</key>
 	<string>YES</string>
 	<key>XCPluginHasUI</key>

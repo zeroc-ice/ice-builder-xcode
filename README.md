@@ -1,13 +1,13 @@
 # Xcode Compiler Plug-In
 Xcode plug-in to compile Slice files to C++ or Objective-C with Xcode.
 
-The Xcode plug-in manages all aspects of code generation, including automatically recompiling Slice files that have changed, removing obsolete generated classes, and tracking dependencies. The Xcode plugin is provided with the Ice Touch installer.
+The Xcode plug-in manages all aspects of code generation, including automatically recompiling Slice files that have changed, removing obsolete generated classes, and tracking dependencies.
 
 ## Install
 
-We recommend using Alcatraz (http://alcatraz.io) to install the plug-in. Look for SliceCompilerPlugin in the Alcatraz package list and click Install.
+We recommend using Alcatraz (http://alcatraz.io) to install the plug-in. Look for IceTouchPlugin in the Alcatraz package list and click Install to install it. Restart Xcode after the plug-in installation.
 
-If not using Alcatraz, open and build the SliceCompilerPlugin project from this repository to install the Slice Compiler Xcode Plugin-In in ~/Library/Application Support/Developer/Shared/Xcode/Plug-ins. Restart Xcode after the plug-in installation to load it. To uninstall the plug-in remove SliceCompilerPlugin.xcplugin from ~/Library/Application Support/Developer/Shared/Xcode/Plug-ins.
+If not using Alcatraz, open and build the IceTouchPlugin Xcode project from this repository to install the Xcode Plugin-In in ~/Library/Application Support/Developer/Shared/Xcode/Plug-ins. Restart Xcode after the plug-in installation. To uninstall the plug-in, remove IceTouchPlugin.xcplugin from ~/Library/Application Support/Developer/Shared/Xcode/Plug-ins.
 
 ## Usage
 
@@ -36,12 +36,12 @@ You can also define Slice compiler options for individual Slice source files. Se
 
 ### Xcode Project Settings for Cocoa and iPhone Applications
 
-For Cocoa and iPhone applications, which use the Xcode SDK, you must add the appropriate directory to Additional SDKs:
+For Cocoa and iPhone applications, which use the IceTouch Xcode SDK, you must add the appropriate directory to Additional SDKs:
 
-| Language        | Location                                                       |
- -----------------| ---------------------------------------------------------------
-| Objective-C SDK | /Library/Developer/IceTouch-3.6/SDKs/ObjC/$(PLATFORM_NAME).sdk |
-| C++ SDK         | /Library/Developer/IceTouch-3.6/SDKs/Cpp/$(PLATFORM_NAME).sdk  |
+| Language        | Location                                               |
+ -----------------| -------------------------------------------------------
+| Objective-C SDK | /usr/local/opt/icetouch/SDKs/ObjC/$(PLATFORM_NAME).sdk |
+| C++ SDK         | /usr/local/opt/icetouch/SDKs/Cpp/$(PLATFORM_NAME).sdk  |
 
 You must also add the following to the Frameworks folder:
 * CFNetwork.framework
@@ -51,8 +51,8 @@ You must also add the following to the Frameworks folder:
 ### Configuring Non-SDK Builds
 
 For non-SDK builds, you must configure the location of the Ice header and library directories. Under the Search Paths section in the project build settings:
-* Add <ice installation>/include to the Header Search Paths setting.
-* Add <ice insetallation/lib to the Library Search Paths setting.
+* Add <Ice installation>/include to the Header Search Paths setting.
+* Add <Ice installation>/lib to the Library Search Paths setting.
 
 ### Generating Code using Xcode
 

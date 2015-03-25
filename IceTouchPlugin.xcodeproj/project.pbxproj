@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		14B9F4A11AC30AC3003329F4 /* Plugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 14B9F4A01AC30AC3003329F4 /* Plugin.m */; };
 		341473020F96D743004C5361 /* Ice.xcbuildrules in Resources */ = {isa = PBXBuildFile; fileRef = 341473010F96D743004C5361 /* Ice.xcbuildrules */; };
 		3436B5BF0F9D800100A5700C /* Ice.xcspec in Resources */ = {isa = PBXBuildFile; fileRef = 3436B5BE0F9D800100A5700C /* Ice.xcspec */; };
 		346CB84B0F8E350100D87FAB /* Ice.pbfilespec in Resources */ = {isa = PBXBuildFile; fileRef = 346CB8490F8E350100D87FAB /* Ice.pbfilespec */; };
@@ -22,6 +23,7 @@
 		089C167FFE841241C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		142769631AC166C1005BC1AF /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		14B9F4A01AC30AC3003329F4 /* Plugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Plugin.m; path = Classes/Plugin.m; sourceTree = "<group>"; };
 		341473010F96D743004C5361 /* Ice.xcbuildrules */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Ice.xcbuildrules; sourceTree = "<group>"; };
 		3436B5BE0F9D800100A5700C /* Ice.xcspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xcspec; path = Ice.xcspec; sourceTree = "<group>"; };
 		346CB8490F8E350100D87FAB /* Ice.pbfilespec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.pbfilespec; path = Ice.pbfilespec; sourceTree = "<group>"; };
@@ -78,6 +80,7 @@
 		08FB77AFFE84173DC02AAC07 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				14B9F4A01AC30AC3003329F4 /* Plugin.m */,
 				348A61B10F96CCAE00A0A1AB /* SliceCompilerSpecification.h */,
 				348A61B20F96CCAE00A0A1AB /* SliceCompilerSpecification.m */,
 			);
@@ -210,6 +213,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				14B9F4A11AC30AC3003329F4 /* Plugin.m in Sources */,
 				348A61B30F96CCAE00A0A1AB /* SliceCompilerSpecification.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

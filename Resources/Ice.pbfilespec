@@ -2,8 +2,8 @@
 //
 // Copyright (c) 2003-2015 ZeroC, Inc. All rights reserved.
 //
-// This copy of Ice Touch is licensed to you under the terms described in the
-// ICE_TOUCH_LICENSE file included in this distribution.
+// This copy of Ice Touch is licensed to you under the terms described
+// in the ICE_TOUCH_LICENSE file included in this distribution.
 //
 // **********************************************************************
 
@@ -13,10 +13,10 @@
         Identifier = sourcecode.slice;
         BasedOn = sourcecode;
         Name = "Slice source files";
-        Extensions = ( ice );
-        //ComputerLanguage = slice;
-        ComputerLanguage = c.objcpp;
+        Extensions = ( "ice" );
+        AppliesToBuildRules = no;
         Language = "xcode.lang.slice";
-        AppliesToBuildRules = yes;
+		IsTextFile = YES;
+		IsSourceFile = YES;
     },
 )
