@@ -22,7 +22,6 @@
 		089C167FFE841241C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		1058C7ADFEA557BF11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		142769631AC166C1005BC1AF /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		32DBCF630370AF2F00C91783 /* SliceCompilerPlugin_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SliceCompilerPlugin_Prefix.pch; sourceTree = "<group>"; };
 		341473010F96D743004C5361 /* Ice.xcbuildrules */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Ice.xcbuildrules; sourceTree = "<group>"; };
 		3436B5BE0F9D800100A5700C /* Ice.xcspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xcspec; path = Ice.xcspec; sourceTree = "<group>"; };
 		346CB8490F8E350100D87FAB /* Ice.pbfilespec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.pbfilespec; path = Ice.pbfilespec; sourceTree = "<group>"; };
@@ -37,7 +36,7 @@
 		348A61B20F96CCAE00A0A1AB /* SliceCompilerSpecification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SliceCompilerSpecification.m; path = Classes/SliceCompilerSpecification.m; sourceTree = "<group>"; };
 		348E60500FA1754700857AA2 /* Ice.xclangspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xclangspec; path = Ice.xclangspec; sourceTree = "<group>"; };
 		8290A73F19CB177400E5FD0A /* English */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = English; path = com.apple.xcode.tools.slice.compiler.strings; sourceTree = "<group>"; };
-		8D5B49B6048680CD000E48DA /* SliceCompilerPlugin.xcplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SliceCompilerPlugin.xcplugin; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D5B49B6048680CD000E48DA /* IceTouchPlugin.xcplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IceTouchPlugin.xcplugin; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2F7E65807B2D6F200F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
@@ -60,7 +59,6 @@
 				346CB8480F8E350100D87FAB /* Resources */,
 				3487487E0F8E316300758FC2 /* Headers */,
 				08FB77AFFE84173DC02AAC07 /* Classes */,
-				32C88E010371C26100C91783 /* Other Sources */,
 				089C1671FE841209C02AAC07 /* Frameworks and Libraries */,
 				19C28FB8FE9D52D311CA2CBB /* Products */,
 				142769631AC166C1005BC1AF /* Info.plist */,
@@ -108,17 +106,9 @@
 		19C28FB8FE9D52D311CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8D5B49B6048680CD000E48DA /* SliceCompilerPlugin.xcplugin */,
+				8D5B49B6048680CD000E48DA /* IceTouchPlugin.xcplugin */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		32C88E010371C26100C91783 /* Other Sources */ = {
-			isa = PBXGroup;
-			children = (
-				32DBCF630370AF2F00C91783 /* SliceCompilerPlugin_Prefix.pch */,
-			);
-			name = "Other Sources";
 			sourceTree = "<group>";
 		};
 		346CB8480F8E350100D87FAB /* Resources */ = {
@@ -157,9 +147,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8D5B49AC048680CD000E48DA /* SliceCompilerPlugin */ = {
+		8D5B49AC048680CD000E48DA /* IceTouchPlugin */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1DEB913A08733D840010E9CD /* Build configuration list for PBXNativeTarget "SliceCompilerPlugin" */;
+			buildConfigurationList = 1DEB913A08733D840010E9CD /* Build configuration list for PBXNativeTarget "IceTouchPlugin" */;
 			buildPhases = (
 				8D5B49AF048680CD000E48DA /* Resources */,
 				8D5B49B1048680CD000E48DA /* Sources */,
@@ -169,10 +159,10 @@
 			);
 			dependencies = (
 			);
-			name = SliceCompilerPlugin;
+			name = IceTouchPlugin;
 			productInstallPath = "$(HOME)/Library/Bundles";
 			productName = slice2objcplugin;
-			productReference = 8D5B49B6048680CD000E48DA /* SliceCompilerPlugin.xcplugin */;
+			productReference = 8D5B49B6048680CD000E48DA /* IceTouchPlugin.xcplugin */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -183,7 +173,7 @@
 			attributes = {
 				LastUpgradeCheck = 0620;
 			};
-			buildConfigurationList = 1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "SliceCompilerPlugin" */;
+			buildConfigurationList = 1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "IceTouchPlugin" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
@@ -195,7 +185,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8D5B49AC048680CD000E48DA /* SliceCompilerPlugin */,
+				8D5B49AC048680CD000E48DA /* IceTouchPlugin */,
 			);
 		};
 /* End PBXProject section */
@@ -256,8 +246,6 @@
 				GCC_ENABLE_OBJC_GC = unsupported;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = SliceCompilerPlugin_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "";
 				HEADER_SEARCH_PATHS = (
 					Headers,
@@ -267,7 +255,7 @@
 				INSTALL_PATH = "/Library/Application Support/Developer/Shared/Xcode/Plug-ins";
 				LD_RUNPATH_SEARCH_PATHS = "$(XCODE_SDK_PATH)";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				PRODUCT_NAME = SliceCompilerPlugin;
+				PRODUCT_NAME = IceTouchPlugin;
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = xcplugin;
 			};
@@ -288,8 +276,6 @@
 				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_DIR)/../PlugIns/Xcode3Core.ideplugin/Contents/Frameworks";
 				GCC_ENABLE_OBJC_GC = unsupported;
 				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = SliceCompilerPlugin_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "";
 				HEADER_SEARCH_PATHS = (
 					Headers,
@@ -299,7 +285,7 @@
 				INSTALL_PATH = "/Library/Application Support/Developer/Shared/Xcode/Plug-ins";
 				LD_RUNPATH_SEARCH_PATHS = "$(XCODE_SDK_PATH)";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				PRODUCT_NAME = SliceCompilerPlugin;
+				PRODUCT_NAME = IceTouchPlugin;
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = xcplugin;
 			};
@@ -334,7 +320,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1DEB913A08733D840010E9CD /* Build configuration list for PBXNativeTarget "SliceCompilerPlugin" */ = {
+		1DEB913A08733D840010E9CD /* Build configuration list for PBXNativeTarget "IceTouchPlugin" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1DEB913B08733D840010E9CD /* Debug */,
@@ -343,7 +329,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "SliceCompilerPlugin" */ = {
+		1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "IceTouchPlugin" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1DEB913F08733D840010E9CD /* Debug */,

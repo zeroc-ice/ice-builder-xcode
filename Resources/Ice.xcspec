@@ -5,7 +5,8 @@
 	Class = "SliceCompilerSpecification";
 	Name = Slice;
 	Description = "Slice Parser Generator";
-        ExecDescription = "Slice2ObjC $(InputFile)";
+    ExecDescription = "Compile Slice file $(InputFile)";
+    ProgressDescription = "Compile Slice file $(InputFile)";
 	InputFileTypes = (sourcecode.slice);
 	CommandOutputParser = (
 		(

@@ -38,8 +38,8 @@
 
 @interface PBXTargetBuildContext(IceTouch)
 -(XCDependencyNode*) dependencyNodeForPath:(NSString*)path;
--(XCDependencyCommand*) createCommandWithRuleInfo:(NSArray*)info commandPath:(NSString*)path arguments:(NSArray*)args 
-                                          forNode:(XCDependencyNode*)node toolSpecification:(id)arg5 
+-(XCDependencyCommand*) createCommandWithRuleInfo:(NSArray*)info commandPath:(NSString*)path arguments:(NSArray*)args
+                                          forNode:(XCDependencyNode*)node toolSpecification:(id)arg5
                           withMacroExpansionScope:(XCMacroExpansionScope*)arg6;
 @end
 
@@ -103,7 +103,16 @@
             return self;
         }
 
-        slicedir = [sliceIceHome stringByAppendingPathComponent:@"slice"];
+        slicedir = [sliceIceHome stringByAppendingPathComponent:@"share/slice"];
+        if(![fileManager fileExistsAtPath:slicedir isDirectory:&dir] || !dir)
+        {
+            slicedir = [sliceIceHome stringByAppendingPathComponent:@"slice"];
+            if(![fileManager fileExistsAtPath:slicedir isDirectory:&dir] || !dir)
+            {
+                error = [NSString stringWithFormat:@"Slice files cannot be found: \"%@\"", slicedir];
+                return self;
+            }
+        }
 
         //
         // Is this a development tree, as opposed to an install? If so the bin and lib directories
@@ -119,7 +128,7 @@
 
         NSString* exe = (cpp ? @"slice2cpp" : @"slice2objc");
         translator = [[sliceIceHome stringByAppendingPathComponent:@"bin"] stringByAppendingPathComponent:exe];
-        
+
         NSDictionary* env = [[NSProcessInfo processInfo] environment];
         NSString* libdir = [sliceIceHome stringByAppendingPathComponent:@"lib"];
         shlibpath = [env objectForKey:@"DYLD_LIBRARY_PATH"];
@@ -145,7 +154,7 @@
             {
                 continue;
             }
-            
+
             sdkDir = [sdkDir stringByDeletingLastPathComponent];
             if([sdkDir rangeOfString:@"Cpp"].location != NSNotFound)
             {
@@ -175,6 +184,13 @@
 
             // The bin and slice directories exist at the root of the SDK.
             slicedir = [sdkDir stringByAppendingPathComponent:@"slice"];
+
+            BOOL dir = NO;
+            if(![fileManager fileExistsAtPath:slicedir isDirectory:&dir] || !dir)
+            {
+                error = [NSString stringWithFormat:@"Slice files cannot be found: \"%@\"", slicedir];
+                return self;
+            }
             break;
         }
 
@@ -198,20 +214,12 @@
     // Do we want to link service client libraries?
     //
     linkWithServices = [[context expandedValueForString:@"$(SLICE_LINK_WITH_SERVICES)"] isEqualToString:@"YES"];
-
-    BOOL dir = NO;
-    if(![fileManager fileExistsAtPath:slicedir isDirectory:&dir] || !dir)
-    {
-        error = [NSString stringWithFormat:@"Slice files cannot be found: \"%@\"", slicedir];
-        return self;
-    }
-    
     return self;
 }
 
 -(NSString*)description
 {
-    return [NSString stringWithFormat:@"translator=%@ shlibpath=%@ slicedir=%@ cpp=%d", 
+    return [NSString stringWithFormat:@"translator=%@ shlibpath=%@ slicedir=%@ cpp=%d",
             translator, shlibpath, slicedir, cpp];
 }
 @end
@@ -222,7 +230,7 @@ typedef struct Configuration Configuration;
 @interface XMLSliceParserDelegate : NSObject<NSXMLParserDelegate>
 {
 @private
-    
+
     NSMutableArray* depends;
 }
 
@@ -275,28 +283,28 @@ typedef struct Configuration Configuration;
         [context addDependencyAnalysisErrorMessageFormat:@"%@", conf.error];
         return [NSArray array];
     }
-    
+
     if(conf.shlibpath)
     {
         [env setObject:conf.shlibpath forKey:@"DYLD_LIBRARY_PATH"];
     }
-        
+
     NSTask *dependTask = [[NSTask alloc] init];
     NSMutableArray *args = [NSMutableArray array];
 
     [dependTask setLaunchPath:conf.translator];
     [dependTask setEnvironment:env];
     [dependTask setCurrentDirectoryPath:[context baseDirectoryPath]];
-    
+
     NSPipe* newPipe = [NSPipe pipe];
     NSFileHandle* readHandle = [newPipe fileHandleForReading];
     NSData* inData = nil;
-    
+
     // write handle is closed to this process
     [dependTask setStandardOutput:newPipe];
     // Stderr goes no-where.
     //[dependTask setStandardError:newPipe];
-    
+
     /* set arguments */
     if(scope)
     {
@@ -319,7 +327,7 @@ typedef struct Configuration Configuration;
     {
         [args addObject:@"--depend-xml"];
     }
-    
+
     //
     // Always add --ice when parsing dependencies, this avoid
     // errors when try to parse dependencies for Ice Slice files.
@@ -339,13 +347,13 @@ typedef struct Configuration Configuration;
     {
         [args addObject:@"--ice"];
     }
-    
+
     [args addObject:path];
-    
+
     //NSLog(@"args: %@", args);
-    
+
     [dependTask setArguments:args];
-    
+
     @try
     {
         [dependTask launch];
@@ -355,7 +363,7 @@ typedef struct Configuration Configuration;
         NSLog(@"translator not accessible");
         return [NSArray array];
     }
-    
+
     NSMutableData* output = [[NSMutableData alloc] init];
     while((inData = [readHandle availableData]) && [inData length])
     {
@@ -376,7 +384,7 @@ typedef struct Configuration Configuration;
         NSLog(@"translator exited with non-zero status %d", [dependTask terminationStatus]);
         return [NSArray array];
     }
-    
+
     if(conf.cpp)
     {
         NSMutableArray* dep = [NSMutableArray array];
@@ -473,7 +481,7 @@ typedef struct Configuration Configuration;
     NSString* sourceExtension = (conf.cpp) ? @"cpp" : @"m";
     NSString* sourceOutput = [outputBase stringByAppendingPathExtension:sourceExtension];
     NSString* headerOutput = [outputBase stringByAppendingPathExtension:@"h"];
-    
+
     // create dependency nodes
     XCDependencyNode* outputSourceNode;
     XCDependencyNode* outputHeaderNode;
@@ -495,8 +503,8 @@ typedef struct Configuration Configuration;
     }
 
     // Add dependencies
-    NSEnumerator *e = [[self dependenciesForSliceFile:input 
-                                 inTargetBuildContext:context 
+    NSEnumerator *e = [[self dependenciesForSliceFile:input
+                                 inTargetBuildContext:context
                               withMacroExpansionScope:scope] objectEnumerator];
     NSString *filename;
     while((filename = [e nextObject]))
@@ -551,11 +559,11 @@ typedef struct Configuration Configuration;
     {
         [dep addEnvironmentValue:conf.shlibpath forKey:@"DYLD_LIBRARY_PATH"];
     }
-    
+
     // Create dependency rules. The source and the header depend on the input file.
     [outputSourceNode addDependedNode:inputNode];
     [outputHeaderNode addDependedNode:inputNode];
-    
+
     // Add the source & headder output to the generated source files.
     [context addPath:sourceOutput toFilePathListWithIdentifier:@"GeneratedSourceFiles"];
     [context addPath:headerOutput toFilePathListWithIdentifier:@"GeneratedSourceFiles"];
@@ -570,7 +578,7 @@ typedef struct Configuration Configuration;
         {
             options = [NSMutableArray arrayWithObjects:@"-liconv", @"-lbz2", nil];
         }
-        else 
+        else
         {
             options = [NSMutableArray array];
         }
@@ -594,13 +602,13 @@ typedef struct Configuration Configuration;
                 {
                     [options addObject:@"-lGlacier2"];
                     [options addObject:@"-lIceStorm"];
-                    [options addObject:@"-lIceGrid"]; 
+                    [options addObject:@"-lIceGrid"];
                 }
                 else
                 {
                     [options addObject:@"-lGlacier2ObjC"];
                     [options addObject:@"-lIceStormObjC"];
-                    [options addObject:@"-lIceGridObjC"];   
+                    [options addObject:@"-lIceGridObjC"];
                 }
             }
         }
@@ -633,7 +641,7 @@ typedef struct Configuration Configuration;
         [context addCompilerRequestedLinkerParameters:
                    [NSDictionary dictionaryWithObject:options forKey:@"AdditionalCommandLineArguments"]];
     }
-    
+
     if(!conf.sdk && !scope)
     {
         NSArray* current;

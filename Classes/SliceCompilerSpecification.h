@@ -10,7 +10,6 @@
 #import "XCPSpecifications.h"
 
 @interface SliceCompilerSpecification : XCCompilerSpecification {
-
 }
 
 @end
