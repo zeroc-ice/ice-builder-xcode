@@ -1,3 +1,5 @@
+[![Build Status](https://magnum.travis-ci.com/ZeroC-Inc/icetouch-xcode-plugin.svg?token=icxd1yE9Nf6WLivZz2vF&branch=master)](https://magnum.travis-ci.com/ZeroC-Inc/icetouch-xcode-plugin)
+
 # Xcode Compiler Plug-In
 Xcode plug-in to compile Slice files to C++ or Objective-C with Xcode.
 
