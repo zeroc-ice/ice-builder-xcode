@@ -10,10 +10,13 @@ ICE_TOUCH_HOME 	?= /usr/local/opt/icetouch
 TESTS			= test1 test2 test3 test4
 
 all::
-	xcodebuild build
+	xcodebuild -scheme IceBuilder build
 
 install::
-	xcodebuild install
+	xcodebuild -scheme IceBuilder install
+
+clean::
+	xcodebuild -scheme IceBuilder clean
 
 test:: install
 	@if [ ! -d $(ICE_HOME) ]; then echo "error: tests require Ice to be installed in $(ICE_HOME)"; exit 1; fi
