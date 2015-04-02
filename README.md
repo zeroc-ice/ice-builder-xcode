@@ -1,24 +1,29 @@
 [![Build Status](https://magnum.travis-ci.com/ZeroC-Inc/icetouch-xcode-plugin.svg?token=icxd1yE9Nf6WLivZz2vF&branch=master)](https://magnum.travis-ci.com/ZeroC-Inc/icetouch-xcode-plugin)
 
-# Xcode Compiler Plug-In
-Xcode plug-in to compile Slice files to C++ or Objective-C with Xcode.
+# Ice Builder for Xcode
+Ice Builder for Xcode is an Xcode plug-in to compile Slice files to
+C++ or Objective-C.
 
-The Xcode plug-in manages all aspects of code generation, including
-automatically recompiling Slice files that have changed, removing obsolete
-generated classes, and tracking dependencies.
+The builder manages all aspects of code generation, including
+automatically recompiling Slice files that have changed, removing
+obsolete generated classes, and tracking dependencies.
 
 ## Install
 
-We recommend using Alcatraz (http://alcatraz.io) to install the plug-in. Look
-for IceTouchPlugin in the Alcatraz package list and click Install to install
-it. Restart Xcode after the plug-in installation.
+We recommend using Alcatraz (http://alcatraz.io) to install the
+builder. Look for Ice Builder in the Alcatraz package list and click
+Install to install it. Restart Xcode after the plug-in installation.
 
-If not using Alcatraz, open and build the IceTouchPlugin Xcode project from
-this repository to install the Xcode Plugin-In in
-~/Library/Application Support/Developer/Shared/Xcode/Plug-ins. Restart Xcode
-after the plug-in installation. To uninstall the plug-in, remove
-IceTouchPlugin.xcplugin from
-~/Library/Application Support/Developer/Shared/Xcode/Plug-ins.
+If not using Alcatraz, open and build the IceBuilder Xcode project
+from this repository to install the Xcode Plugin-In in:
+
+  ~/Library/Application Support/Developer/Shared/Xcode/Plug-ins
+
+Restart Xcode after the plug-in installation.
+
+To uninstall the plug-in, remove IceBuilder.xcplugin from:
+
+  ~/Library/Application Support/Developer/Shared/Xcode/Plug-ins
 
 ## Usage
 
@@ -76,20 +81,19 @@ add the appropriate directory to Additional SDKs:
 | C++ SDK         | /usr/local/opt/icetouch/SDKs/Cpp/$(PLATFORM_NAME).sdk  |
 
 You must also add the following to the Frameworks folder:
-* CFNetwork.framework
-* Security.framework
-* Foundation.framework
+- Security.framework (OS X and iOS)
+- CFNetwork.framework (iOS only)
 
 ### Configuring Non-SDK Builds
 
-For non-SDK builds, you must configure the location of the Ice header and
-library directories. Under the Search Paths section in the project build
-settings:
-* Add <Ice installation>/include to the Header Search Paths setting.
-* Add <Ice installation>/lib to the Library Search Paths setting.
+For non-SDK builds, you must configure the location of the Ice header
+and library directories. Under the Search Paths section in the project
+build settings:
+* Add *Ice installation*/include to the Header Search Paths setting.
+* Add *Ice installation*/lib to the Library Search Paths setting.
 
 ### Generating Code using Xcode
 
-The plug-in compiles a Slice file whenever you build the project. The extension
-tracks dependencies among Slice files in the project and recompiles only those
-files that require it after a change.
+The builder compiles a Slice file whenever you build the project. The
+extension tracks dependencies among Slice files in the project and
+recompiles only those files that require it after a change.

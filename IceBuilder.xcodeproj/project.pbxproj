@@ -38,7 +38,7 @@
 		348A61B20F96CCAE00A0A1AB /* SliceCompilerSpecification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SliceCompilerSpecification.m; path = Classes/SliceCompilerSpecification.m; sourceTree = "<group>"; };
 		348E60500FA1754700857AA2 /* Ice.xclangspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xclangspec; path = Ice.xclangspec; sourceTree = "<group>"; };
 		8290A73F19CB177400E5FD0A /* English */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = English; path = com.apple.xcode.tools.slice.compiler.strings; sourceTree = "<group>"; };
-		8D5B49B6048680CD000E48DA /* IceTouchPlugin.xcplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IceTouchPlugin.xcplugin; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D5B49B6048680CD000E48DA /* IceBuilder.xcplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IceBuilder.xcplugin; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2F7E65807B2D6F200F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
@@ -109,7 +109,7 @@
 		19C28FB8FE9D52D311CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8D5B49B6048680CD000E48DA /* IceTouchPlugin.xcplugin */,
+				8D5B49B6048680CD000E48DA /* IceBuilder.xcplugin */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -150,9 +150,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8D5B49AC048680CD000E48DA /* IceTouchPlugin */ = {
+		8D5B49AC048680CD000E48DA /* IceBuilder */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1DEB913A08733D840010E9CD /* Build configuration list for PBXNativeTarget "IceTouchPlugin" */;
+			buildConfigurationList = 1DEB913A08733D840010E9CD /* Build configuration list for PBXNativeTarget "IceBuilder" */;
 			buildPhases = (
 				8D5B49AF048680CD000E48DA /* Resources */,
 				8D5B49B1048680CD000E48DA /* Sources */,
@@ -162,10 +162,10 @@
 			);
 			dependencies = (
 			);
-			name = IceTouchPlugin;
+			name = IceBuilder;
 			productInstallPath = "$(HOME)/Library/Bundles";
 			productName = slice2objcplugin;
-			productReference = 8D5B49B6048680CD000E48DA /* IceTouchPlugin.xcplugin */;
+			productReference = 8D5B49B6048680CD000E48DA /* IceBuilder.xcplugin */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -176,7 +176,7 @@
 			attributes = {
 				LastUpgradeCheck = 0620;
 			};
-			buildConfigurationList = 1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "IceTouchPlugin" */;
+			buildConfigurationList = 1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "IceBuilder" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
@@ -188,7 +188,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8D5B49AC048680CD000E48DA /* IceTouchPlugin */,
+				8D5B49AC048680CD000E48DA /* IceBuilder */,
 			);
 		};
 /* End PBXProject section */
@@ -259,7 +259,7 @@
 				INSTALL_PATH = "/Library/Application Support/Developer/Shared/Xcode/Plug-ins";
 				LD_RUNPATH_SEARCH_PATHS = "$(XCODE_SDK_PATH)";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				PRODUCT_NAME = IceTouchPlugin;
+				PRODUCT_NAME = IceBuilder;
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = xcplugin;
 			};
@@ -289,7 +289,7 @@
 				INSTALL_PATH = "/Library/Application Support/Developer/Shared/Xcode/Plug-ins";
 				LD_RUNPATH_SEARCH_PATHS = "$(XCODE_SDK_PATH)";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				PRODUCT_NAME = IceTouchPlugin;
+				PRODUCT_NAME = IceBuilder;
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = xcplugin;
 			};
@@ -324,7 +324,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1DEB913A08733D840010E9CD /* Build configuration list for PBXNativeTarget "IceTouchPlugin" */ = {
+		1DEB913A08733D840010E9CD /* Build configuration list for PBXNativeTarget "IceBuilder" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1DEB913B08733D840010E9CD /* Debug */,
@@ -333,7 +333,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "IceTouchPlugin" */ = {
+		1DEB913E08733D840010E9CD /* Build configuration list for PBXProject "IceBuilder" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1DEB913F08733D840010E9CD /* Debug */,

@@ -15,7 +15,7 @@ all::
 install::
 	xcodebuild install
 
-test::
+test:: install
 	@if [ ! -d $(ICE_HOME) ]; then echo "error: tests require Ice to be installed in $(ICE_HOME)"; exit 1; fi
 	@if [ ! -d $(ICE_TOUCH_HOME) ]; then echo "error: tests require IceTouch to be installed in $(ICE_TOUCH_HOME)"; exit 1; fi
 	@for test in $(TESTS); \
