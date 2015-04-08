@@ -51,9 +51,8 @@
     NSString* shlibpath;
     NSString* slicedir;
     BOOL cpp;
-    NSString* error;
     BOOL sdk;
-    BOOL linkWithServices;
+    NSString* error;
 }
 
 @property (readonly) NSString* translator;
@@ -62,7 +61,7 @@
 @property (readonly) NSString* icehome;
 @property (readonly) BOOL cpp;
 @property (readonly) BOOL sdk;
-@property (readonly) BOOL linkWithServices;
+@property (readonly) NSArray* options;
 @property (readonly) NSString* error;
 
 -(id)initWithContext:(PBXTargetBuildContext*)context;
@@ -77,8 +76,8 @@
 @synthesize icehome;
 @synthesize cpp;
 @synthesize sdk;
+@synthesize options;
 @synthesize error;
-@synthesize linkWithServices;
 
 -(id)initWithContext:(PBXTargetBuildContext*)context
 {
@@ -90,6 +89,7 @@
     NSFileManager* fileManager = [NSFileManager defaultManager];
     [fileManager changeCurrentDirectoryPath:context.baseDirectoryPath];
     NSString* sliceIceHome = [context expandedValueForString:@"$(SLICE_ICE_HOME)"];
+    NSString* version = nil;
     if(sliceIceHome.length > 0)
     {
         sdk = NO;
@@ -152,6 +152,7 @@
                 continue;
             }
 
+            NSString* sdkSettings = [sdkDir stringByAppendingPathComponent:@"SDKSettings.plist"];
             sdkDir = [sdkDir stringByDeletingLastPathComponent];
             if([sdkDir rangeOfString:@"Cpp"].location != NSNotFound)
             {
@@ -179,6 +180,16 @@
             sdk = YES;
             found = YES;
 
+            NSDictionary* settings = [NSDictionary dictionaryWithContentsOfFile:sdkSettings];
+            if(settings)
+            {
+                version = [settings objectForKey:@"Version"];
+                if(!version)
+                {
+                    version = [settings objectForKey:@"CanonicalName"];
+                }
+            }
+
             // The bin and slice directories exist at the root of the SDK.
             slicedir = [sdkDir stringByAppendingPathComponent:@"slice"];
 
@@ -198,19 +209,98 @@
         }
     }
 
-    //
-    // Are we compiling with the libc++ library?
-    //
-    if([[context expandedValueForString:@"$(CLANG_CXX_LIBRARY)"] isEqualToString:@"libstdc++"])
+    NSString* libsuffix = @"";
+    NSString* libstdcpp;
+    if(version && [version rangeOfString:@"1.3"].location != NSNotFound ||
+       icehome && [icehome rangeOfString:@"IceTouch-1.3"].location != NSNotFound)
     {
-        error = @"Ice Touch doesn't support libstdc++";
-        return self;
+        //
+        // If deployment target is 7.0 and 10.9 and libstdc++ isn't
+        // set or if libc++ is set explicitly, link with libraries
+        // suffixed with -libc++
+        //
+        if((([[context expandedValueForString:@"$(IPHONEOS_DEPLOYMENT_TARGET)"] doubleValue] >= 7.0 ||
+             [[context expandedValueForString:@"$(MACOSX_DEPLOYMENT_TARGET)"] doubleValue] >= 10.9) &&
+            ![[context expandedValueForString:@"$(CLANG_CXX_LIBRARY)"] isEqualToString:@"libstdc++"]) ||
+           [[context expandedValueForString:@"$(CLANG_CXX_LIBRARY)"] isEqualToString:@"libc++"])
+        {
+            libsuffix = @"-libc++";
+            libstdcpp = @"-lc++";
+        }
+        else
+        {
+            libstdcpp = @"-lstdc++";
+        }
+    }
+    else
+    {
+        //
+        // Make sure we are compiling with the libc++ library, we no longer support libstdc++
+        //
+        libstdcpp = @"-lc++";
+        if([[context expandedValueForString:@"$(CLANG_CXX_LIBRARY)"] isEqualToString:@"libstdc++"])
+        {
+            error = @"Ice Touch doesn't support libstdc++";
+            return self;
+        }
     }
 
     //
     // Do we want to link service client libraries?
     //
-    linkWithServices = [[context expandedValueForString:@"$(SLICE_LINK_WITH_SERVICES)"] isEqualToString:@"YES"];
+    BOOL linkWithServices = [[context expandedValueForString:@"$(SLICE_LINK_WITH_SERVICES)"] isEqualToString:@"YES"];
+
+    //
+    // Format for link option
+    //
+    NSString* format;
+    if(version && [version rangeOfString:@"1.3"].location != NSNotFound ||
+       icehome && [icehome rangeOfString:@"IceTouch-1.3"].location != NSNotFound)
+    {
+        if(sdk)
+        {
+            format = [[@"-l%@" stringByAppendingString:cpp ? @"Cpp": @"ObjC"] stringByAppendingString:libsuffix];
+        }
+        else
+        {
+            format = [[@"-l%@" stringByAppendingString:cpp ? @"": @"ObjC"] stringByAppendingString:libsuffix];
+        }
+    }
+    else
+    {
+        format = cpp ? @"-l%@" : @"-l%@ObjC";
+    }
+
+    //
+    // Libraries
+    //
+    NSMutableArray* libs = [NSMutableArray array];
+    if(linkWithServices)
+    {
+        [libs addObjectsFromArray:[NSArray arrayWithObjects:@"Glacier2", @"IceStorm", @"IceGrid", nil]];
+    }
+    [libs addObject:@"Ice"];
+    if(!sdk && cpp)
+    {
+        [libs addObject:@"IceUtil"];
+    }
+
+    NSMutableArray* opts = [NSMutableArray array];
+    for(__strong NSString* lib in libs)
+    {
+        [opts addObject:[NSString stringWithFormat:format, lib]];
+    }
+
+    if([[context expandedValueForString:@"$(PLATFORM_NAME)"] isEqualToString:@"macosx"])
+    {
+        [opts addObjectsFromArray:[NSArray arrayWithObjects:@"-liconv", @"-lbz2", nil]];
+    }
+    if(!cpp)
+    {
+        [opts addObject:@"-ObjC"];
+        [opts addObject:libstdcpp];
+    }
+    options = opts;
     return self;
 }
 
@@ -570,73 +660,8 @@ typedef struct Configuration Configuration;
     //
     if(![[context expandedValueForString:@"$(MACH_O_TYPE)"] isEqualToString:@"staticlib"])
     {
-        NSMutableArray* options;
-        if([[context expandedValueForString:@"$(PLATFORM_NAME)"] isEqualToString:@"macosx"])
-        {
-            options = [NSMutableArray arrayWithObjects:@"-liconv", @"-lbz2", nil];
-        }
-        else
-        {
-            options = [NSMutableArray array];
-        }
-
-        if(!conf.sdk)
-        {
-            if(conf.cpp)
-            {
-                [options addObject:@"-lIceUtil"];
-                [options addObject:@"-lIce"];
-            }
-            else
-            {
-                [options addObject:@"-ObjC"];
-                [options addObject:@"-lIceObjC"];
-            }
-
-            if(conf.linkWithServices)
-            {
-                if(conf.cpp)
-                {
-                    [options addObject:@"-lGlacier2"];
-                    [options addObject:@"-lIceStorm"];
-                    [options addObject:@"-lIceGrid"];
-                }
-                else
-                {
-                    [options addObject:@"-lGlacier2ObjC"];
-                    [options addObject:@"-lIceStormObjC"];
-                    [options addObject:@"-lIceGridObjC"];
-                }
-            }
-        }
-        else
-        {
-            if(conf.cpp)
-            {
-                [options addObject:@"-lIce"];
-                if(conf.linkWithServices)
-                {
-                    [options addObject:@"-lGlacier2"];
-                    [options addObject:@"-lIceStorm"];
-                    [options addObject:@"-lIceGrid"];
-                }
-            }
-            else
-            {
-                [options addObject:@"-ObjC"];
-                [options addObject:@"-lc++"];
-                [options addObject:@"-lIceObjC"];
-                if(conf.linkWithServices)
-                {
-                    [options addObject:@"-lGlacier2ObjC"];
-                    [options addObject:@"-lIceStormObjC"];
-                    [options addObject:@"-lIceGridObjC"];
-                }
-            }
-        }
-
         [context addCompilerRequestedLinkerParameters:
-                   [NSDictionary dictionaryWithObject:options forKey:@"AdditionalCommandLineArguments"]];
+                   [NSDictionary dictionaryWithObject:conf.options forKey:@"AdditionalCommandLineArguments"]];
     }
 
     if(!conf.sdk && !scope)
