@@ -6,25 +6,25 @@
 
 "[IceBuilder]-category" = "Options";
 
-"[SLICE_CPP_FLAG]-name" = "Translate C++ code";
+"[SLICE_CPP_FLAG]-name" = "Generate Code for C++ Instead of Objective-C";
 "[SLICE_CPP_FLAG]-description" = "Generate C++ code from Slice files.";
 
-"[SLICE_ICE_FLAG]-name" = "Permit `Ice' prefix";
+"[SLICE_ICE_FLAG]-name" = "Allow Reserved Ice Identifiers";
 "[SLICE_ICE_FLAG]-description" = "Permit `Ice' prefix (for building Ice source code only).";
 
-"[SLICE_STREAM_FLAG]-name" = "Streaming support";
+"[SLICE_STREAM_FLAG]-name" = "Generate Helper Functions For Streaming";
 "[SLICE_STREAM_FLAG]-description" = "Generate marshaling support for stream API.";
 
-"[SLICE_CHECKSUM_FLAG]-name" = "Checksum support";
+"[SLICE_CHECKSUM_FLAG]-name" = "Generate Slice Checksums";
 "[SLICE_CHECKSUM_FLAG]-description" = "Generate checksums for Slice definitions.";
 
-"[SLICE_UNDERSCORE_FLAG]-name" = "Underscore support";
+"[SLICE_UNDERSCORE_FLAG]-name" = "Allow Underscores in Identifiers";
 "[SLICE_UNDERSCORE_FLAG]-description" = "Permit underscores in Slice identifiers.";
 
-"[SLICE_INCLUDE_PATH]-name" = "Header Search Paths";
+"[SLICE_INCLUDE_PATH]-name" = "Base Directory For Generated #include/#import";
 "[SLICE_INCLUDE_PATH]-description" = "The path to search for Slice files.";
 
-"[SLICE_INCLUDE_DIR]-name" = "Header Directory";
+"[SLICE_INCLUDE_DIR]-name" = "Additional Include Directories";
 "[SLICE_INCLUDE_DIR]-description" = "Use specified directory as the header include directory in source files.";
 
 "[SLICE_OUTPUT_DIR]-name" = "Output Directory";
@@ -36,5 +36,5 @@
 "[SLICE_ICE_HOME]-name" = "Ice Home";
 "[SLICE_ICE_HOME]-description" = "The location of your Ice installation.";
 
-"[SLICE_LINK_WITH_SERVICES]-name" = "Link with Ice services client libraries";
+"[SLICE_LINK_WITH_SERVICES]-name" = "Link with Ice Services Client Libraries";
 "[SLICE_LINK_WITH_SERVICES]-description" = "Link with Glacier2, IceStorm and IceGrid client libraries.";
