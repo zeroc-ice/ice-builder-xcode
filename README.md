@@ -25,6 +25,12 @@ To uninstall the plug-in, remove `IceBuilder.xcplugin` from:
 ```
 ~/Library/Application Support/Developer/Shared/Xcode/Plug-ins
 ```
+If you have a previous version of the Ice Touch Xcode Plug-in installed, you must remove the following symbolic link to disable it:
+```
+$ sudo rm /Library/Application Support/Developer/6.2/Xcode/Plug-ins/slice2objcplugin.pbplugin
+```
+Replace 6.2 in the path above with the Xcode version you're using.
+
 ## Usage
 
 ### Adding Slice Files to an Xcode Project
