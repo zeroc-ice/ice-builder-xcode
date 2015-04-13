@@ -4,7 +4,7 @@
 //
 // **********************************************************************/
 
-"[Slice]-category" = "Slice - code generation";
+"[IceBuilder]-category" = "Options";
 
 "[SLICE_CPP_FLAG]-name" = "Translate C++ code";
 "[SLICE_CPP_FLAG]-description" = "Generate C++ code from Slice files.";

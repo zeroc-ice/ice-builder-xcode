@@ -13,7 +13,7 @@
         Extensions = ( "ice" );
         AppliesToBuildRules = no;
         Language = "xcode.lang.slice";
-		IsTextFile = YES;
-		IsSourceFile = YES;
+	IsTextFile = YES;
+	IsSourceFile = YES;
     },
 )
