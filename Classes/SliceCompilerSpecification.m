@@ -211,8 +211,8 @@
 
     NSString* libsuffix = @"";
     NSString* libstdcpp;
-    if(version && [version rangeOfString:@"1.3"].location != NSNotFound ||
-       icehome && [icehome rangeOfString:@"IceTouch-1.3"].location != NSNotFound)
+    if((version && [version rangeOfString:@"1.3"].location != NSNotFound) ||
+       (icehome && [icehome rangeOfString:@"IceTouch-1.3"].location != NSNotFound))
     {
         //
         // If deployment target is 7.0 and 10.9 and libstdc++ isn't
@@ -254,8 +254,8 @@
     // Format for link option
     //
     NSString* format;
-    if(version && [version rangeOfString:@"1.3"].location != NSNotFound ||
-       icehome && [icehome rangeOfString:@"IceTouch-1.3"].location != NSNotFound)
+    if((version && [version rangeOfString:@"1.3"].location != NSNotFound) ||
+       (icehome && [icehome rangeOfString:@"IceTouch-1.3"].location != NSNotFound))
     {
         if(sdk)
         {
