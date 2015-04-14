@@ -36,17 +36,14 @@
 "[SLICE_INCLUDE_DIR]-name" = "Base Directory For Generated #include/#import";
 "[SLICE_INCLUDE_DIR]-description" = "Use specified directory as the header include directory in source files.";
 
-"[SLICE_STREAM_FLAG]-name" = "Generate Helper Functions For Streaming";
+"[SLICE_STREAM_FLAG]-name" = "Generate Helper Functions For Streaming (C++ Only)";
 "[SLICE_STREAM_FLAG]-description" = "Generate marshaling support for stream API.";
 
 "[SLICE_CHECKSUM_FLAG]-name" = "Generate Slice Checksums (C++ Only)";
 "[SLICE_CHECKSUM_FLAG]-description" = "Generate checksums for Slice definitions.";
-
 
 "[SLICE_OUTPUT_DIR]-name" = "Output Directory";
 "[SLICE_OUTPUT_DIR]-description" = "The path to output directory for generated files.";
 
 "[SLICE_PREPROCESSOR_DEFINITIONS]-name" = "Preprocessor Macros";
 "[SLICE_PREPROCESSOR_DEFINITIONS]-description" = "Preprocessor macros used by the Slice compiler.";
-
-
