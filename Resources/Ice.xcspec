@@ -145,6 +145,24 @@
 				DefaultValue = "";
 				Category = "IceBuilderGeneralOptions";
 			},
+			{
+				Name = "SLICE_DLL_EXPORT";
+				Type = String;
+				DefaultValue = "";
+				CommandLineArgs = (
+					"--dll-export",
+					"$(value)",
+				);
+				Category = "IceBuilderSliceOptions";
+			},
+			{
+				Name = "SLICE_ADDITIONAL_OPTIONS";
+				Type = StringList;
+				CommandLineArgs = (
+					"$(value)",
+				);
+				Category = "IceBuilderSliceOptions";
+			}
 		);
 		OptionCategories = (
 			{

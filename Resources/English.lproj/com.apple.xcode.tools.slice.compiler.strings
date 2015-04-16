@@ -27,6 +27,9 @@
 "[SLICE_INCLUDE_PATH]-name" = "Additional Include Directories";
 "[SLICE_INCLUDE_PATH]-description" = "The path to search for Slice files.";
 
+"[SLICE_ADDITIONAL_OPTIONS]-name" = "Additional Options";
+"[SLICE_ADDITIONAL_OPTIONS]-description" = "Additional options to pass to the Slice compiler.";
+
 "[SLICE_ICE_FLAG]-name" = "Allow Reserved Ice Identifiers";
 "[SLICE_ICE_FLAG]-description" = "Permit `Ice' prefix (for building Ice source code only).";
 
@@ -35,6 +38,9 @@
 
 "[SLICE_INCLUDE_DIR]-name" = "Base Directory For Generated #include/#import";
 "[SLICE_INCLUDE_DIR]-description" = "Use specified directory as the header include directory in source files.";
+
+"[SLICE_DLL_EXPORT]-name" = "DLL Export Macro";
+"[SLICE_DLL_EXPORT]-description" = "Provide support for placing the generated code in a shared library.";
 
 "[SLICE_STREAM_FLAG]-name" = "Generate Helper Functions For Streaming (C++ Only)";
 "[SLICE_STREAM_FLAG]-description" = "Generate marshaling support for stream API.";
