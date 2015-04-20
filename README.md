@@ -11,7 +11,7 @@ obsolete generated classes, and tracking dependencies.
 ## Install
 
 We recommend using Alcatraz (http://alcatraz.io) to install the
-builder. Look for Ice Builder in the Alcatraz package list and click
+builder. Look for *IceBuilder* in the Alcatraz package list and click
 `Install` to install it. Restart Xcode after the plug-in installation.
 
 If not using Alcatraz, open and build the IceBuilder Xcode project
