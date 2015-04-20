@@ -1,10 +1,8 @@
+// **********************************************************************
 //
-//  test1.m
-//  test1
+// Copyright (c) 2008-2015 ZeroC, Inc. All rights reserved.
 //
-//  Created by Benoit Foucher on 24/03/2015.
-//
-//
+// **********************************************************************
 
 #import <Cocoa/Cocoa.h>
 #import <XCTest/XCTest.h>

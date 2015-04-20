@@ -1,3 +1,8 @@
+// **********************************************************************
+//
+// Copyright (c) 2008-2015 ZeroC, Inc. All rights reserved.
+//
+// **********************************************************************
 
 // Disable verify macro which conflicts with Ice C++ headers.
 #define __ASSERT_MACROS_DEFINE_VERSIONS_WITHOUT_UNDERSCORES 0
