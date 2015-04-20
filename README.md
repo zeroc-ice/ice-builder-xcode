@@ -1,4 +1,4 @@
-[![Build Status](https://magnum.travis-ci.com/zeroc-ice/ice-builder-xcode.svg?token=icxd1yE9Nf6WLivZz2vF&branch=master)](https://magnum.travis-ci.com/zeroc-ice/ice-builder-xcode)
+[![Build Status](https://travis-ci.org/zeroc-ice/ice-builder-xcode.svg)](https://travis-ci.org/zeroc-ice/ice-builder-xcode)
 
 # Ice Builder for Xcode
 Ice Builder for Xcode is an Xcode plug-in to compile Slice files to
