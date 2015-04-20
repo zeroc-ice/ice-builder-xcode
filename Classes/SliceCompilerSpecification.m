@@ -4,16 +4,7 @@
 //
 // **********************************************************************
 
-//
-// This is used by the headers to figure out which Xcode plugin API to use,
-// we force it to 4.6.
-//
-#define XCODE_VERSION 46
-
 #import <SliceCompilerSpecification.h>
-#import <XCPBuildSystem.h>
-#import <XCPDependencyGraph.h>
-#import <XCPSupport.h>
 #import <Foundation/NSException.h>
 
 @interface XCDependencyGraphCreationContext : NSObject

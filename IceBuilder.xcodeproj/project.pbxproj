@@ -28,18 +28,13 @@
 		3436B5BE0F9D800100A5700C /* Ice.xcspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xcspec; path = Ice.xcspec; sourceTree = "<group>"; };
 		346CB8490F8E350100D87FAB /* Ice.pbfilespec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.pbfilespec; path = Ice.pbfilespec; sourceTree = "<group>"; };
 		348748660F8E30A000758FC2 /* DevToolsCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DevToolsCore.framework; path = Library/PrivateFrameworks/DevToolsCore.framework; sourceTree = DEVELOPER_DIR; };
-		3487487F0F8E316300758FC2 /* XCPBuildSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCPBuildSystem.h; sourceTree = "<group>"; };
-		348748810F8E316300758FC2 /* XCPDependencyGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCPDependencyGraph.h; sourceTree = "<group>"; };
-		348748820F8E316300758FC2 /* XCPOutputParsing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCPOutputParsing.h; sourceTree = "<group>"; };
-		348748830F8E316300758FC2 /* XCPSourceParsing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCPSourceParsing.h; sourceTree = "<group>"; };
-		348748840F8E316300758FC2 /* XCPSpecifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCPSpecifications.h; sourceTree = "<group>"; };
-		348748850F8E316300758FC2 /* XCPSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XCPSupport.h; sourceTree = "<group>"; };
 		348A61B10F96CCAE00A0A1AB /* SliceCompilerSpecification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SliceCompilerSpecification.h; path = Classes/SliceCompilerSpecification.h; sourceTree = "<group>"; };
 		348A61B20F96CCAE00A0A1AB /* SliceCompilerSpecification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SliceCompilerSpecification.m; path = Classes/SliceCompilerSpecification.m; sourceTree = "<group>"; };
 		348E60500FA1754700857AA2 /* Ice.xclangspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xclangspec; path = Ice.xclangspec; sourceTree = "<group>"; };
 		8290A73F19CB177400E5FD0A /* English */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = English; path = com.apple.xcode.tools.slice.compiler.strings; sourceTree = "<group>"; };
 		8D5B49B6048680CD000E48DA /* IceBuilder.xcplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IceBuilder.xcplugin; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2F7E65807B2D6F200F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
+		D81052641AE53A94006BDB80 /* Xcode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Xcode.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,12 +132,7 @@
 		3487487E0F8E316300758FC2 /* Headers */ = {
 			isa = PBXGroup;
 			children = (
-				3487487F0F8E316300758FC2 /* XCPBuildSystem.h */,
-				348748810F8E316300758FC2 /* XCPDependencyGraph.h */,
-				348748820F8E316300758FC2 /* XCPOutputParsing.h */,
-				348748830F8E316300758FC2 /* XCPSourceParsing.h */,
-				348748840F8E316300758FC2 /* XCPSpecifications.h */,
-				348748850F8E316300758FC2 /* XCPSupport.h */,
+				D81052641AE53A94006BDB80 /* Xcode.h */,
 			);
 			path = Headers;
 			sourceTree = "<group>";

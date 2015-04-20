@@ -4,7 +4,7 @@
 //
 // **********************************************************************
 
-#import "XCPSpecifications.h"
+#import "Xcode.h"
 
 @interface SliceCompilerSpecification : XCCompilerSpecification {
 }
