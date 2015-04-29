@@ -65,7 +65,7 @@ The settings are separated into sections: `Ice Builder - General Options` and `I
 | --------------------------------------------- | :------------------------------: | ---------------------------------------------------------------------------------------------------------------- |
 | Additional Include Directories                | `SLICE_INCLUDE_PATH`             | The list of directories to search for Slice files (`-I` option). The Ice Slice files are automatically included. |
 | Additional Options                            | `SLICE_ADDITIONAL_OPTIONS`       | Additional options to pass to the Slice compiler.                                                                |
-| Allow Reserved Ice Identifiers                | `SLICE_ICE_FLAG`                 | Pass `--ice` to the Slice compiler.                                                                              |
+| Allow Reserved Ice Prefix in Identifiers      | `SLICE_ICE_FLAG`                 | Pass `--ice` to the Slice compiler.                                                                              |
 | Allow Underscores in Identifiers              | `SLICE_UNDERSCORE_FLAG`          | Pass `--underscore` to the Slice compiler.                                                                       |
 | Base Directory for Generated #include/#import | `SLICE_INCLUDE_DIR`              | Directory to use as the header include directory in source files.                                                |
 | DLL Export Macro                              | `SLICE_DLL_EXPORT`               | Provide support for placing the generated code in a shared library (`--dll-export` option).                      |

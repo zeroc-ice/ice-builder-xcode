@@ -30,8 +30,8 @@
 "[SLICE_ADDITIONAL_OPTIONS]-name" = "Additional Options";
 "[SLICE_ADDITIONAL_OPTIONS]-description" = "Additional options to pass to the Slice compiler.";
 
-"[SLICE_ICE_FLAG]-name" = "Allow Reserved Ice Identifiers";
-"[SLICE_ICE_FLAG]-description" = "Permit `Ice' prefix (for building Ice source code only).";
+"[SLICE_ICE_FLAG]-name" = "Allow Reserved Ice Prefix in Identifiers";
+"[SLICE_ICE_FLAG]-description" = "Allow Reserved Ice Prefix in Identifiers.";
 
 "[SLICE_UNDERSCORE_FLAG]-name" = "Allow Underscores in Identifiers";
 "[SLICE_UNDERSCORE_FLAG]-description" = "Permit underscores in Slice identifiers.";
