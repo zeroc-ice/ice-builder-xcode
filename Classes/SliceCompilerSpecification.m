@@ -138,11 +138,6 @@
         BOOL found = NO;
         for(__strong NSString* sdkDir in sdks)
         {
-            if([sdkDir rangeOfString:@"SDKs"].location == NSNotFound)
-            {
-                continue;
-            }
-
             NSString* sdkSettings = [sdkDir stringByAppendingPathComponent:@"SDKSettings.plist"];
             sdkDir = [sdkDir stringByDeletingLastPathComponent];
             if([sdkDir rangeOfString:@"Cpp"].location != NSNotFound)
