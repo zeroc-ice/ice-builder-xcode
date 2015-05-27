@@ -117,10 +117,13 @@
 				Name = "SLICE_INCLUDE_DIR";
 				Type = Path;
 				DefaultValue = "";
-				CommandLineArgs = (
-					"--include-dir",
-					"$(value)",
-				);
+				CommandLineArgs = {
+					"" = ();
+					"<<otherwise>>" = (
+						"--include-dir",
+						"$(value)",
+					);
+				};
 				Category = "IceBuilderSliceOptions";
 			},
 			{
@@ -149,10 +152,13 @@
 				Name = "SLICE_DLL_EXPORT";
 				Type = String;
 				DefaultValue = "";
-				CommandLineArgs = (
-					"--dll-export",
-					"$(value)",
-				);
+				CommandLineArgs = {
+					"" = ();
+					"<<otherwise>>" = (
+						"--dll-export",
+						"$(value)"
+					);
+				};
 				Category = "IceBuilderSliceOptions";
 			},
 			{
