@@ -6,7 +6,7 @@
 
 #import <Foundation/Foundation.h>
 
-#define ICE_BUILDER_VERSION "2.0.2"
+#define ICE_BUILDER_VERSION "2.0.3"
 
 @interface IceBuilder : NSObject {
 }

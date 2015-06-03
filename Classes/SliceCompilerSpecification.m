@@ -281,10 +281,14 @@
     {
         [opts addObjectsFromArray:[NSArray arrayWithObjects:@"-liconv", @"-lbz2", nil]];
     }
+    else
+    {
+        [opts addObject:@"-liconv"];
+    }
+
     if(!cpp)
     {
-        [opts addObject:@"-ObjC"];
-        [opts addObject:libstdcpp];
+        [opts addObjectsFromArray:[NSArray arrayWithObjects:@"-ObjC", libstdcpp, nil]];
     }
     options = opts;
     return self;
