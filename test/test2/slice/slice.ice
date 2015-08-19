@@ -20,5 +20,4 @@ string s;
 module Ice
 {
 
-
 };

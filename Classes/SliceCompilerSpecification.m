@@ -22,6 +22,8 @@
 }
 @property(readonly) PBXTargetBuildContext *buildContext;
 -(id) dependencyGraphCreationContext;
+-(id) evaluatedStringValueForMacroNamed:(id)arg1;
+-(id) evaluatedStringListValueForMacroNamed:(id)arg1;
 @end
 
 @interface PBXTargetBuildContext(IceBuilder)
@@ -55,7 +57,7 @@
 @property (readonly) NSArray* options;
 @property (readonly) NSString* error;
 
--(id)initWithContext:(PBXTargetBuildContext*)context;
+-(id)initWithContext:(PBXTargetBuildContext*)context withScope:(XCMacroExpansionScope*)scope;
 
 @end
 
@@ -70,7 +72,7 @@
 @synthesize options;
 @synthesize error;
 
--(id)initWithContext:(PBXTargetBuildContext*)context
+-(id)initWithContext:(PBXTargetBuildContext*)context withScope:(XCMacroExpansionScope*)scope
 {
     if(!(self = [super init]))
     {
@@ -79,7 +81,7 @@
 
     NSFileManager* fileManager = [NSFileManager defaultManager];
     [fileManager changeCurrentDirectoryPath:context.baseDirectoryPath];
-    NSString* sliceIceHome = [context expandedValueForString:@"$(SLICE_ICE_HOME)"];
+    NSString* sliceIceHome = [scope evaluatedStringValueForMacroNamed:@"SLICE_ICE_HOME"];
     NSString* version = nil;
     if(sliceIceHome.length > 0)
     {
@@ -112,7 +114,7 @@
             sliceIceHome = homeCpp;
         }
 
-        cpp = [[context expandedValueForString:@"$(SLICE_CPP_FLAG)"] isEqualToString:@"YES"];
+        cpp = [[scope evaluatedStringValueForMacroNamed:@"SLICE_CPP_FLAG"] isEqualToString:@"YES"];
 
         NSString* exe = (cpp ? @"slice2cpp" : @"slice2objc");
         translator = [[sliceIceHome stringByAppendingPathComponent:@"bin"] stringByAppendingPathComponent:exe];
@@ -133,7 +135,7 @@
     }
     else
     {
-        NSString* sdksRaw = [context expandedValueForString:@"$(ADDITIONAL_SDKS)"];
+        NSString* sdksRaw = [scope evaluatedStringValueForMacroNamed:@"ADDITIONAL_SDKS"];
         NSArray* sdks = [sdksRaw componentsSeparatedByString:@" "];
         BOOL found = NO;
         for(__strong NSString* sdkDir in sdks)
@@ -205,10 +207,10 @@
         // set or if libc++ is set explicitly, link with libraries
         // suffixed with -libc++
         //
-        if((([[context expandedValueForString:@"$(IPHONEOS_DEPLOYMENT_TARGET)"] doubleValue] >= 7.0 ||
-             [[context expandedValueForString:@"$(MACOSX_DEPLOYMENT_TARGET)"] doubleValue] >= 10.9) &&
-            ![[context expandedValueForString:@"$(CLANG_CXX_LIBRARY)"] isEqualToString:@"libstdc++"]) ||
-           [[context expandedValueForString:@"$(CLANG_CXX_LIBRARY)"] isEqualToString:@"libc++"])
+        if((([[scope evaluatedStringValueForMacroNamed:@"IPHONEOS_DEPLOYMENT_TARGET"] doubleValue] >= 7.0 ||
+             [[scope evaluatedStringValueForMacroNamed:@"MACOSX_DEPLOYMENT_TARGET"] doubleValue] >= 10.9) &&
+            ![[scope evaluatedStringValueForMacroNamed:@"CLANG_CXX_LIBRARY"] isEqualToString:@"libstdc++"]) ||
+           [[scope evaluatedStringValueForMacroNamed:@"CLANG_CXX_LIBRARY"] isEqualToString:@"libc++"])
         {
             libsuffix = @"-libc++";
             libstdcpp = @"-lc++";
@@ -224,7 +226,7 @@
         // Make sure we are compiling with the libc++ library, we no longer support libstdc++
         //
         libstdcpp = @"-lc++";
-        if([[context expandedValueForString:@"$(CLANG_CXX_LIBRARY)"] isEqualToString:@"libstdc++"])
+        if([[scope evaluatedStringValueForMacroNamed:@"CLANG_CXX_LIBRARY"] isEqualToString:@"libstdc++"])
         {
             error = @"Ice Touch doesn't support libstdc++";
             return self;
@@ -234,7 +236,7 @@
     //
     // Do we want to link service client libraries?
     //
-    BOOL linkWithServices = [[context expandedValueForString:@"$(SLICE_LINK_WITH_SERVICES)"] isEqualToString:@"YES"];
+    BOOL linkWithServices = [[scope evaluatedStringValueForMacroNamed:@"SLICE_LINK_WITH_SERVICES"] isEqualToString:@"YES"];
 
     //
     // Format for link option
@@ -277,7 +279,7 @@
         [opts addObject:[NSString stringWithFormat:format, lib]];
     }
 
-    if([[context expandedValueForString:@"$(PLATFORM_NAME)"] isEqualToString:@"macosx"])
+    if([[scope evaluatedStringValueForMacroNamed:@"PLATFORM_NAME"] isEqualToString:@"macosx"])
     {
         [opts addObjectsFromArray:[NSArray arrayWithObjects:@"-liconv", @"-lbz2", nil]];
     }
@@ -348,55 +350,26 @@ typedef struct Configuration Configuration;
 
 @implementation SliceCompilerSpecification
 
-// Run the slice compiler with --depend-xml to determine the dependencies for the given slice file.
--(NSArray*)dependenciesForSliceFile:(NSString*)path
-               inTargetBuildContext:(PBXTargetBuildContext*)context
-            withMacroExpansionScope:(XCMacroExpansionScope*)scope
+-(NSArray*)dependenciesForSliceFile:(NSString*)path command:(XCDependencyCommand*)cmd
 {
-    NSMutableDictionary* env = [[[NSProcessInfo processInfo] environment] mutableCopy];
-    SliceCompilerConfiguration* conf = [[SliceCompilerConfiguration alloc] initWithContext:context];
-    if(conf.error)
-    {
-        [context addDependencyAnalysisErrorMessageFormat:@"%@", conf.error];
-        return [NSArray array];
-    }
-
-    if(conf.shlibpath)
-    {
-        [env setObject:conf.shlibpath forKey:@"DYLD_LIBRARY_PATH"];
-    }
-
     NSTask *dependTask = [[NSTask alloc] init];
     NSMutableArray *args = [NSMutableArray array];
 
-    [dependTask setLaunchPath:conf.translator];
-    [dependTask setEnvironment:env];
-    [dependTask setCurrentDirectoryPath:[context baseDirectoryPath]];
+    [dependTask setLaunchPath:[cmd commandPath]];
+    [dependTask setEnvironment:[cmd environment]];
+    [dependTask setCurrentDirectoryPath:[cmd workingDirectoryPath]];
 
     NSPipe* newPipe = [NSPipe pipe];
     NSFileHandle* readHandle = [newPipe fileHandleForReading];
     NSData* inData = nil;
 
-    // write handle is closed to this process
     [dependTask setStandardOutput:newPipe];
-    // Stderr goes no-where.
-    //[dependTask setStandardError:newPipe];
 
-    /* set arguments */
-    if(scope)
-    {
-        [args addObjectsFromArray:[self commandLineForAutogeneratedOptionsWithMacroExpansionScope:scope]];
-    }
-    else
-    {
-        [args addObjectsFromArray:[self commandLineForAutogeneratedOptionsInTargetBuildContext:context]];
-    }
-    [args addObjectsFromArray:[[context expandedValueForString:@"$(build_file_compiler_flags)"]
-                                  arrayByParsingAsStringList]];
-    [args addObject:[NSString stringWithFormat:@"-I%@", conf.slicedir]];
+    [args addObjectsFromArray:[cmd arguments]];
 
     // Use old style dependency parsing?
-    if(conf.cpp)
+    BOOL cpp = [[cmd commandPath] rangeOfString:@"slice2cpp"].location != NSNotFound;
+    if(cpp)
     {
         [args addObject:@"--depend"];
     }
@@ -462,7 +435,7 @@ typedef struct Configuration Configuration;
         return [NSArray array];
     }
 
-    if(conf.cpp)
+    if(cpp)
     {
         NSMutableArray* dep = [NSMutableArray array];
         NSString* soutput = [[NSString alloc]initWithData:output encoding:NSUTF8StringEncoding];
@@ -510,6 +483,26 @@ typedef struct Configuration Configuration;
     }
 }
 
+- (id)processDependencyInfoFileIfNecessaryForCommand:(id)cmd commandInvocationSucceeded:(BOOL)r;
+{
+    return ^ {
+        NSMutableArray* dependencies = [NSMutableArray array];
+        for(XCDependencyNode* node in [cmd inputNodes])
+        {
+            NSEnumerator *e = [[self dependenciesForSliceFile:[node path] command:cmd] objectEnumerator];
+            NSString *filename;
+            PBXTargetBuildContext* context = [cmd buildContext];
+            while((filename = [e nextObject]))
+            {
+                XCDependencyNode *node = [context dependencyNodeForPath:[context absolutePathForPath:filename]];
+                [node setDontCareIfExists:YES];
+                [dependencies addObject:node];
+            }
+        }
+        [cmd setDiscoveredInputNodes:dependencies];
+    };
+}
+
 -(NSArray*) computeDependenciesForFilePath:(NSString*)input
                                     ofType:(PBXFileType*)type
                            outputDirectory:(NSString*)outputDir
@@ -522,19 +515,6 @@ typedef struct Configuration Configuration;
                         withMacroExpansionScope:scope];
 }
 
-// Called by Xcode 4
--(NSArray*) computeDependenciesForFilePath:(NSString*)input
-                                    ofType:(PBXFileType*)type
-                           outputDirectory:(NSString*)outputDir
-                      inTargetBuildContext:(PBXTargetBuildContext*)context
-{
-    return [self computeDependenciesForFilePath:input
-                                         ofType:type
-                                outputDirectory:outputDir
-                           inTargetBuildContext:context
-                        withMacroExpansionScope:nil];
-}
-
 -(NSArray*) computeDependenciesForFilePath:(NSString*)input
                                     ofType:(PBXFileType*)type
                            outputDirectory:(NSString*)outputDir
@@ -542,9 +522,9 @@ typedef struct Configuration Configuration;
                    withMacroExpansionScope:(XCMacroExpansionScope*)scope
 {
     // compute input path (for variable substitution)
-    input = [context expandedValueForString:input];
+    input = [context absolutePathForPath:input];
 
-    SliceCompilerConfiguration* conf = [[SliceCompilerConfiguration alloc] initWithContext:context];
+    SliceCompilerConfiguration* conf = [[SliceCompilerConfiguration alloc] initWithContext:context withScope:scope];
     if(conf.error)
     {
         [context addDependencyAnalysisErrorMessageFormat:@"%@", conf.error];
@@ -552,7 +532,8 @@ typedef struct Configuration Configuration;
     }
 
     // The output file goes in the derived files dir.
-    NSString* generatedOutputDir = [context expandedValueForString:@"$(SLICE_OUTPUT_DIR)"];
+    NSString* generatedOutputDir = [scope evaluatedStringValueForMacroNamed:@"SLICE_OUTPUT_DIR"];
+
     NSString* outputBase = [generatedOutputDir stringByAppendingPathComponent:[[input lastPathComponent]
                                                                                stringByDeletingPathExtension]];
     NSString* sourceExtension = (conf.cpp) ? @"cpp" : @"m";
@@ -562,84 +543,34 @@ typedef struct Configuration Configuration;
     // create dependency nodes
     XCDependencyNode* outputSourceNode;
     XCDependencyNode* outputHeaderNode;
-    XCDependencyNode* inputNode;
-    if(scope)
-    {
-        outputSourceNode = [context dependencyNodeForPath:sourceOutput];
-        outputHeaderNode = [context dependencyNodeForPath:headerOutput];
-        inputNode = [context dependencyNodeForPath:input];
+    XCDependencyNode* inputNode = [context dependencyNodeForPath:input];
 
-        [[scope dependencyGraphCreationContext] addNodeToClean:outputSourceNode];
-        [[scope dependencyGraphCreationContext] addNodeToClean:outputHeaderNode];
-    }
-    else
-    {
-        outputSourceNode = [context dependencyNodeForName:sourceOutput createIfNeeded:YES];
-        outputHeaderNode = [context dependencyNodeForName:headerOutput createIfNeeded:YES];
-        inputNode = [context dependencyNodeForName:input createIfNeeded:YES];
-    }
+    outputSourceNode = [context dependencyNodeForPath:sourceOutput];
+    outputHeaderNode = [context dependencyNodeForPath:headerOutput];
 
-    // Add dependencies
-    NSEnumerator *e = [[self dependenciesForSliceFile:input
-                                 inTargetBuildContext:context
-                              withMacroExpansionScope:scope] objectEnumerator];
-    NSString *filename;
-    while((filename = [e nextObject]))
-    {
-        NSString *filepath = [context absolutePathForPath:filename];
-        XCDependencyNode *node;
-        if(scope)
-        {
-            node = [context dependencyNodeForPath:filepath];
-        }
-        else
-        {
-            node = [context dependencyNodeForName:filepath createIfNeeded:YES];
-        }
-        [node setDontCareIfExists:YES];
-        [inputNode addIncludedNode:node];
-    }
+    [[scope dependencyGraphCreationContext] addNodeToClean:outputSourceNode];
+    [[scope dependencyGraphCreationContext] addNodeToClean:outputHeaderNode];
 
     // Create slice2objc command
-    XCDependencyCommand* dep;
-    if(scope)
-    {
-        dep = [context createCommandWithRuleInfo:[NSArray arrayWithObjects:(conf.cpp ? @"slice2cpp" : @"slice2objc"),
-                                                          [context naturalPathForPath:input],nil]
+    XCDependencyCommand* dep = [context createCommandWithRuleInfo:
+        [NSArray arrayWithObjects:(conf.cpp ? @"slice2cpp" : @"slice2objc"), [context naturalPathForPath:input], nil]
                                      commandPath:conf.translator
                                        arguments:nil
                                          forNode:outputHeaderNode
                                toolSpecification:self
                          withMacroExpansionScope:scope];
-        [dep addArgumentsFromArray:[self commandLineForAutogeneratedOptionsWithMacroExpansionScope:scope]];
-    }
-    else
-    {
-        dep = [context createCommandWithRuleInfo:[NSArray arrayWithObjects:(conf.cpp ? @"slice2cpp" : @"slice2objc"),
-                                                          [context naturalPathForPath:input],nil]
-                                     commandPath:conf.translator
-                                       arguments:nil
-                                         forNode:outputHeaderNode];
-        [dep setToolSpecification:self]; // So Xcode knows how to parse the output, etc.
-        [dep addArgumentsFromArray:[self commandLineForAutogeneratedOptionsInTargetBuildContext:context]];
-    }
 
+    [dep addArgumentsFromArray:[self commandLineForAutogeneratedOptionsWithMacroExpansionScope:scope]];
+    [dep addInputNode:inputNode];
     [dep addOutputNode:outputSourceNode];
-    [dep addArgumentsFromArray:[[context expandedValueForString:@"$(build_file_compiler_flags)"]
-                                arrayByParsingAsStringList]];
-
+    [dep addArgumentsFromArray:[scope evaluatedStringListValueForMacroNamed:@"build_file_compiler_flags"]];
     [dep addArgument:[NSString stringWithFormat:@"-I%@", conf.slicedir]];
     [dep addArgument:input];
     [dep setPhaseNumber:3]; // This is the phase that the yacc plugin uses.
-
     if(conf.shlibpath)
     {
         [dep addEnvironmentValue:conf.shlibpath forKey:@"DYLD_LIBRARY_PATH"];
     }
-
-    // Create dependency rules. The source and the header depend on the input file.
-    [outputSourceNode addDependedNode:inputNode];
-    [outputHeaderNode addDependedNode:inputNode];
 
     // Add the source & headder output to the generated source files.
     [context addPath:sourceOutput toFilePathListWithIdentifier:@"GeneratedSourceFiles"];
@@ -648,7 +579,7 @@ typedef struct Configuration Configuration;
     //
     // Add linker options (unless this is a static library project).
     //
-    if(![[context expandedValueForString:@"$(MACH_O_TYPE)"] isEqualToString:@"staticlib"])
+    if(![[scope evaluatedStringValueForMacroNamed:@"MACH_O_TYPE"] isEqualToString:@"staticlib"])
     {
         [context addCompilerRequestedLinkerParameters:
                    [NSDictionary dictionaryWithObject:conf.options forKey:@"AdditionalCommandLineArguments"]];
@@ -659,7 +590,7 @@ typedef struct Configuration Configuration;
         NSArray* current;
 
         NSString* includeDir = [conf.icehome stringByAppendingPathComponent:@"include"];
-        current = [[context expandedValueForString:@"$(HEADER_SEARCH_PATHS)"] arrayByParsingAsStringList];
+        current = [scope evaluatedStringListValueForMacroNamed:@"HEADER_SEARCH_PATHS"];
         if(![current containsObject:includeDir])
         {
             NSMutableArray* copy = [current mutableCopy];
@@ -668,7 +599,7 @@ typedef struct Configuration Configuration;
         }
 
         NSString* libDir = [conf.icehome stringByAppendingPathComponent:@"lib"];
-        current = [[context expandedValueForString:@"$(LIBRARY_SEARCH_PATHS)"] arrayByParsingAsStringList];
+        current = [scope evaluatedStringListValueForMacroNamed:@"LIBRARY_SEARCH_PATHS"];
         if(![current containsObject:libDir])
         {
             NSMutableArray* copy = [current mutableCopy];
@@ -677,7 +608,6 @@ typedef struct Configuration Configuration;
         }
     }
 
-    // The output of the plugin is a single source node.
-    return [NSArray arrayWithObject:outputSourceNode];
+    return [NSArray arrayWithObjects:outputSourceNode, outputHeaderNode, nil];
 }
 @end

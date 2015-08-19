@@ -1297,7 +1297,6 @@
 //        unsigned char markByte;
 //    } _cmnd2009;
 }
-
 - (id)dependencyNode;
 - (BOOL)outputFilesHaveBeenUpdated;
 - (void)unlockInputAndOutputFiles;
@@ -1415,6 +1414,7 @@
 - (id)outputNodes;
 - (void)addInputNode:(id)arg1;
 - (id)inputNodes;
+- (void)setDiscoveredInputNodes:(id)arg1;
 - (void)invalidateConfigurationSignature;
 - (void)invalidateInputSignature;
 - (void)setPhaseNumber:(unsigned long long)arg1;
@@ -1425,6 +1425,7 @@
 - (void)setBuildContext:(id)arg1 commandNumber:(unsigned long long)arg2;
 - (id)_buildStateId;
 - (id)buildContext;
+- (id)macroExpansionScope;
 - (void)detachFromOtherGraphObjects;
 - (void)dealloc;
 - (id)init;

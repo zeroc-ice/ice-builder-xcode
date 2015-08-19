@@ -18,6 +18,7 @@
 		14AD82191AC2BEEC00CFBDF9 /* test4.mm in Sources */ = {isa = PBXBuildFile; fileRef = 14AD82181AC2BEEC00CFBDF9 /* test4.mm */; };
 		14AD82201AC2BF3400CFBDF9 /* slice.ice in Sources */ = {isa = PBXBuildFile; fileRef = 14AD821E1AC2BF3400CFBDF9 /* slice.ice */; };
 		14AD82211AC2BF3400CFBDF9 /* slice2.ice in Sources */ = {isa = PBXBuildFile; fileRef = 14AD821F1AC2BF3400CFBDF9 /* slice2.ice */; };
+		14EE1BA31B84E10000D8FCFC /* slice3.ice in Sources */ = {isa = PBXBuildFile; fileRef = 14EE1BA21B84E10000D8FCFC /* slice3.ice */; };
 		D834434B1AE039070018AF18 /* slice1.ice in Sources */ = {isa = PBXBuildFile; fileRef = D834434A1AE039070018AF18 /* slice1.ice */; };
 		D83443521AE03D570018AF18 /* libtestLib.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D83443331AE0387E0018AF18 /* libtestLib.dylib */; };
 /* End PBXBuildFile section */
@@ -42,6 +43,7 @@
 		14AD82181AC2BEEC00CFBDF9 /* test4.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = test4.mm; sourceTree = "<group>"; };
 		14AD821E1AC2BF3400CFBDF9 /* slice.ice */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.slice; path = slice.ice; sourceTree = "<group>"; };
 		14AD821F1AC2BF3400CFBDF9 /* slice2.ice */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.slice; path = slice2.ice; sourceTree = "<group>"; };
+		14EE1BA21B84E10000D8FCFC /* slice3.ice */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.slice; name = slice3.ice; path = slice/slice3.ice; sourceTree = "<group>"; };
 		D83443331AE0387E0018AF18 /* libtestLib.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libtestLib.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		D834434A1AE039070018AF18 /* slice1.ice */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.slice; path = slice1.ice; sourceTree = "<group>"; };
 		D83443511AE03CCC0018AF18 /* generated */ = {isa = PBXFileReference; lastKnownFileType = folder; path = generated; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 			children = (
 				14318C011AC2A87800E53118 /* slice.ice */,
 				14318C021AC2A87800E53118 /* slice2.ice */,
+				14EE1BA21B84E10000D8FCFC /* slice3.ice */,
 			);
 			name = slice;
 			sourceTree = "<group>";
@@ -418,6 +421,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				14EE1BA31B84E10000D8FCFC /* slice3.ice in Sources */,
 				14318C041AC2A87800E53118 /* slice2.ice in Sources */,
 				14318C031AC2A87800E53118 /* slice.ice in Sources */,
 				149D6FDD1AC1DB90008A8B56 /* test2.mm in Sources */,
@@ -577,7 +581,7 @@
 		149D6FD01AC1D942008A8B56 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ADDITIONAL_SDKS = "$(ICE_TOUCH_HOME)/SDKs/ObjC/$(PLATFORM_NAME).sdk";
+				ADDITIONAL_SDKS = "$(ICE_TOUCH_HOME)/lib/IceTouch/ObjC/$(PLATFORM_NAME).sdk";
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -627,7 +631,7 @@
 		149D6FD11AC1D942008A8B56 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ADDITIONAL_SDKS = "$(ICE_TOUCH_HOME)/SDKs/ObjC/$(PLATFORM_NAME).sdk";
+				ADDITIONAL_SDKS = "$(ICE_TOUCH_HOME)/lib/IceTouch/ObjC/$(PLATFORM_NAME).sdk";
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -671,7 +675,7 @@
 		149D6FDF1AC1DB90008A8B56 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ADDITIONAL_SDKS = "$(ICE_TOUCH_HOME)/SDKs/Cpp/$(PLATFORM_NAME).sdk";
+				ADDITIONAL_SDKS = "$(ICE_TOUCH_HOME)/lib/IceTouch/Cpp/$(PLATFORM_NAME).sdk";
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -725,7 +729,7 @@
 		149D6FE01AC1DB90008A8B56 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ADDITIONAL_SDKS = "$(ICE_TOUCH_HOME)/SDKs/Cpp/$(PLATFORM_NAME).sdk";
+				ADDITIONAL_SDKS = "$(ICE_TOUCH_HOME)/lib/IceTouch/Cpp/$(PLATFORM_NAME).sdk";
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -891,7 +895,7 @@
 		D83443451AE0387E0018AF18 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ADDITIONAL_SDKS = "$(ICE_TOUCH_HOME)/SDKs/ObjC/$(PLATFORM_NAME).sdk";
+				ADDITIONAL_SDKS = "$(ICE_TOUCH_HOME)/lib/IceTouch/ObjC/$(PLATFORM_NAME).sdk";
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -948,7 +952,7 @@
 		D83443461AE0387E0018AF18 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ADDITIONAL_SDKS = "$(ICE_TOUCH_HOME)/SDKs/ObjC/$(PLATFORM_NAME).sdk";
+				ADDITIONAL_SDKS = "$(ICE_TOUCH_HOME)/lib/IceTouch/ObjC/$(PLATFORM_NAME).sdk";
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -1051,6 +1055,7 @@
 				D83443461AE0387E0018AF18 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

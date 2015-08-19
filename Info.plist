@@ -22,15 +22,19 @@
 	<string>1.0</string>
 	<key>DVTPlugInCompatibilityUUIDs</key>
 	<array>
-		<string>37B30044-3B14-46BA-ABAA-F01000C27B63</string>
-		<string>A2E4D43F-41F4-4FB9-BB94-7177011C9AED</string>
+		<!-- 6.0 -->
 		<string>C4A681B0-4A26-480E-93EC-1218098B9AA0</string>
+		<!-- 6.2 -->
 		<string>A16FF353-8441-459E-A50C-B071F53F51B7</string>
-		<string>992275C1-432A-4CF7-B659-D84ED6D42D3F</string>
+		<!-- 6.3 -->
 		<string>9F75337B-21B4-4ADC-B558-F9CADF7073A7</string>
+		<!-- 6.3.2 -->
 		<string>E969541F-E6F9-4D25-8158-72DC3545A6C6</string>
 		<string>8DC44374-2B35-4C57-A6FE-2AD66A36AAD9</string>
+		<!-- 6.4 -->
 		<string>7FDF5C7A-131F-4ABB-9EDC-8C5F8F0B8A90</string>
+		<!-- 7.0 beta -->
+		<string>AABB7188-E14E-4433-AD3B-5CD791EAD9A3</string>
 	</array>
 	<key>LoadAtLaunch</key>
 	<string>YES</string>
