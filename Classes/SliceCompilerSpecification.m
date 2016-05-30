@@ -83,6 +83,7 @@
     [fileManager changeCurrentDirectoryPath:context.baseDirectoryPath];
     NSString* sliceIceHome = [scope evaluatedStringValueForMacroNamed:@"SLICE_ICE_HOME"];
     NSString* version = nil;
+    NSString* canonicalName = nil;
     if(sliceIceHome.length > 0)
     {
         sdk = NO;
@@ -145,22 +146,21 @@
             if([sdkDir rangeOfString:@"Cpp"].location != NSNotFound)
             {
                 translator = [sdkDir stringByAppendingPathComponent:@"bin/slice2cpp"];
-                if(![fileManager isExecutableFileAtPath:translator])
-                {
-                    continue;
-                }
                 cpp = YES;
             }
             else if([sdkDir rangeOfString:@"ObjC"].location != NSNotFound)
             {
                 translator = [sdkDir stringByAppendingPathComponent:@"bin/slice2objc"];
-                if(![fileManager isExecutableFileAtPath:translator])
-                {
-                    continue;
-                }
                 cpp = NO;
             }
             else
+            {
+                cpp = [[scope evaluatedStringValueForMacroNamed:@"SLICE_CPP_FLAG"] isEqualToString:@"YES"];
+                NSString* exe = (cpp ? @"slice2cpp" : @"slice2objc");
+                translator = [[sdkDir stringByAppendingPathComponent:@"bin"] stringByAppendingPathComponent:exe];
+            }
+
+            if(![fileManager isExecutableFileAtPath:translator])
             {
                 continue;
             }
@@ -171,10 +171,11 @@
             NSDictionary* settings = [NSDictionary dictionaryWithContentsOfFile:sdkSettings];
             if(settings)
             {
+                canonicalName = [settings objectForKey:@"CanonicalName"];
                 version = [settings objectForKey:@"Version"];
                 if(!version)
                 {
-                    version = [settings objectForKey:@"CanonicalName"];
+                    version = canonicalName;
                 }
             }
 
@@ -192,7 +193,7 @@
 
         if(!found)
         {
-            error = [NSString stringWithFormat:@"Ice Touch SDK cannot be found: \"%@\"", sdksRaw];
+            error = [NSString stringWithFormat:@"Ice SDK cannot be found: \"%@\"", sdksRaw];
             return self;
         }
     }
@@ -228,7 +229,7 @@
         libstdcpp = @"-lc++";
         if([[scope evaluatedStringValueForMacroNamed:@"CLANG_CXX_LIBRARY"] isEqualToString:@"libstdc++"])
         {
-            error = @"Ice Touch doesn't support libstdc++";
+            error = @"Ice doesn't support libstdc++";
             return self;
         }
     }
@@ -268,15 +269,33 @@
         [libs addObjectsFromArray:[NSArray arrayWithObjects:@"Glacier2", @"IceStorm", @"IceGrid", nil]];
     }
     [libs addObject:@"Ice"];
+    if([canonicalName rangeOfString:@"Ice SDK"].location != NSNotFound)
+    {
+        [libs addObject:@"IceSSL"];
+    }
     if(!sdk && cpp)
     {
-        [libs addObject:@"IceUtil"];
+        if([fileManager fileExistsAtPath:[icehome stringByAppendingPathComponent:@"lib/libIceUtil.dylib"]])
+        {
+            [libs addObject:@"IceUtil"];
+        }
     }
 
     NSMutableArray* opts = [NSMutableArray array];
     for(__strong NSString* lib in libs)
     {
         [opts addObject:[NSString stringWithFormat:format, lib]];
+    }
+
+    if([canonicalName rangeOfString:@"Ice SDK"].location != NSNotFound)
+    {
+        if(!cpp)
+        {
+            [opts addObject:@"-lIce"];
+            [opts addObject:@"-lIceSSL"];
+        }
+        [opts addObject:@"-lIceLocatorDiscovery"];
+        [opts addObject:@"-lIceDiscovery"];
     }
 
     if([[scope evaluatedStringValueForMacroNamed:@"PLATFORM_NAME"] isEqualToString:@"macosx"])
