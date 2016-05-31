@@ -298,14 +298,7 @@
         [opts addObject:@"-lIceDiscovery"];
     }
 
-    if([[scope evaluatedStringValueForMacroNamed:@"PLATFORM_NAME"] isEqualToString:@"macosx"])
-    {
-        [opts addObjectsFromArray:[NSArray arrayWithObjects:@"-liconv", @"-lbz2", nil]];
-    }
-    else
-    {
-        [opts addObject:@"-liconv"];
-    }
+    [opts addObjectsFromArray:[NSArray arrayWithObjects:@"-liconv", @"-lbz2", nil]];
 
     if(!cpp)
     {
