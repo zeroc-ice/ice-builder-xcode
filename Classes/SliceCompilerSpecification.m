@@ -240,6 +240,15 @@
     BOOL linkWithServices = [[scope evaluatedStringValueForMacroNamed:@"SLICE_LINK_WITH_SERVICES"] isEqualToString:@"YES"];
 
     //
+    // Use C++11 mapping?
+    //
+    BOOL cpp11 = NO;
+    cpp11 |= [[scope evaluatedStringListValueForMacroNamed:@"OTHER_CPLUSPLUSFFLAGS"]
+        containsObject:@"-DICE_CPP11_MAPPING"];
+    cpp11 |= [[scope evaluatedStringListValueForMacroNamed:@"GCC_PREPROCESSOR_DEFINITIONS"]
+        containsObject:@"ICE_CPP11_MAPPING"];
+
+    //
     // Format for link option
     //
     NSString* format;
@@ -257,12 +266,11 @@
     }
     else
     {
-        format = cpp ? @"-l%@" : @"-l%@ObjC";
+        format = cpp ? (cpp11 ? @"-l%@++11" : @"-l%@") : @"-l%@ObjC";
     }
 
     //
     // Libraries
-    //
     NSMutableArray* libs = [NSMutableArray array];
     if(linkWithServices)
     {
@@ -597,29 +605,7 @@ typedef struct Configuration Configuration;
                    [NSDictionary dictionaryWithObject:conf.options forKey:@"AdditionalCommandLineArguments"]];
     }
 
-    if(!conf.sdk && !scope)
-    {
-        NSArray* current;
-
-        NSString* includeDir = [conf.icehome stringByAppendingPathComponent:@"include"];
-        current = [scope evaluatedStringListValueForMacroNamed:@"HEADER_SEARCH_PATHS"];
-        if(![current containsObject:includeDir])
-        {
-            NSMutableArray* copy = [current mutableCopy];
-            [copy addObject:includeDir];
-            [context setStringValue:[copy componentsJoinedByString:@" "] forDynamicSetting:@"HEADER_SEARCH_PATHS"];
-        }
-
-        NSString* libDir = [conf.icehome stringByAppendingPathComponent:@"lib"];
-        current = [scope evaluatedStringListValueForMacroNamed:@"LIBRARY_SEARCH_PATHS"];
-        if(![current containsObject:libDir])
-        {
-            NSMutableArray* copy = [current mutableCopy];
-            [copy addObject:libDir];
-            [context setStringValue:[copy componentsJoinedByString:@" "] forDynamicSetting:@"LIBRARY_SEARCH_PATHS"];
-        }
-    }
-
     return [NSArray arrayWithObjects:outputSourceNode, outputHeaderNode, nil];
 }
+
 @end
