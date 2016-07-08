@@ -26,11 +26,6 @@ To uninstall the plug-in, remove `IceBuilder.xcplugin` from:
 ```
 ~/Library/Application Support/Developer/Shared/Xcode/Plug-ins
 ```
-If you have a previous version of the Ice Touch Xcode Plug-in installed, you must remove the following symbolic link to disable it:
-```
-$ sudo rm /Library/Application Support/Developer/6.3/Xcode/Plug-ins/slice2objcplugin.pbplugin
-```
-Replace 6.3 in the path above with the Xcode version you're using.
 
 ## Usage
 
@@ -55,8 +50,8 @@ The settings are separated into sections: `Ice Builder - General Options` and `I
 
 | Setting                                      | Name                       | Description                                                                                                                                                                                                            |
 | -------------------------------------------- | :------------------------: | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Generate Code for C++ Instead of Objective-C | `SLICE_CPP_FLAG`           | Leave this option unset for an SDK build. Otherwise, set this to compile Slice files to C++ insated of Objective-C.                                                                                                    |
-| Ice Home                                     | `SLICE_ICE_HOME`           | Leave this option unset if building with Ice Touch. Otherwise, if using a homebrew Ice installation or regular Ice, set this to the location of the installation (e.g.: `/usr/local` or `/Library/Developer/Ice-3.5`). |
+| Generate Code for C++ Instead of Objective-C | `SLICE_CPP_FLAG`           | Set this option to compile Slice files to C++ instead of Objective-C.                                                                                                    |
+| Ice Home                                     | `SLICE_ICE_HOME`           | Leave this option unset if building with Ice Touch or the Ice Xcode SDKs. Otherwise, if using a homebrew Ice installation or regular Ice, set this to the location of the installation (e.g.: `/usr/local` or `/Library/Developer/Ice-3.5`). |
 | Link with Ice Services Client Libraries      | `SLICE_LINK_WITH_SERVICES` | Link with Glacier2, IceStorm and IceGrid client libraries.                                                                                                                                                             |
 
 #### Ice Builder - Slice Compiler Options
@@ -82,17 +77,24 @@ for that target.
 
 ### Xcode Project Settings for Cocoa and iPhone Applications
 
-For Cocoa and iPhone applications, which use the IceTouch Xcode SDK, you must
-add the appropriate directory to the `Additional SDKs` setting:
+For Cocoa and iPhone applications, which use the IceTouch or Ice Xcode SDKs, you
+must add the appropriate directory to the `Additional SDKs` setting:
 
-| Language        | Location                                                         |
-| ----------------|------------------------------------------------------------------|
-| Objective-C SDK | `/Library/Developer/IceTouch-1.3/SDKs/ObjC/$(PLATFORM_NAME).sdk` |
-| C++ SDK         | `/Library/Developer/IceTouch-1.3/SDKs/Cpp/$(PLATFORM_NAME).sdk`  |
+|Distribution | Language        | Location                                                         |
+|-------------| ----------------|------------------------------------------------------------------|
+| IceTouch    | Objective-C SDK | `/Library/Developer/IceTouch-1.3/SDKs/ObjC/$(PLATFORM_NAME).sdk` |
+| IceTouch    | C++ SDK         | `/Library/Developer/IceTouch-1.3/SDKs/Cpp/$(PLATFORM_NAME).sdk`  |
+| Ice >= 3.7  | Objective-C SDK | `/usr/local/lib/IceSDK/$(PLATFORM_NAME).sdk`                     |
+| Ice >= 3.7  | C++ SDK         | `/usr/local/lib/IceSDK/$(PLATFORM_NAME).sdk`                     |
 
-You must also add the following to the Frameworks folder:
+You must also link with the following Frameworks:
 * `Security.framework` (OS X and iOS)
 * `CFNetwork.framework` (iOS only)
+* `UIKit.framework` (iOS only)
+
+To use the iAP transport on iOS, you will also need to add the `-lIceIAP` option
+to the `Other Linker Flags` setting and link with the
+`ExternalAccessory.framework` framework.
 
 ### Configuring Non-SDK Builds
 
@@ -105,5 +107,5 @@ build settings:
 ### Generating Code using Xcode
 
 The builder compiles a Slice file whenever you build the project. The
-extension tracks dependencies among Slice files in the project and
+builder tracks dependencies among Slice files in the project and
 recompiles only those files that require it after a change.
