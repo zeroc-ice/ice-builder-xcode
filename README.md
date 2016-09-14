@@ -1,111 +1,43 @@
-[![Build Status](https://travis-ci.org/zeroc-ice/ice-builder-xcode.svg)](https://travis-ci.org/zeroc-ice/ice-builder-xcode)
-
 # Ice Builder for Xcode
 
-Ice Builder for Xcode is an Xcode plug-in to compile Slice files to
-C++ or Objective-C.
+Ice Builder for Xcode is a command line program to help compile Slice files to C++ or Objective-C in Xcode.
 
-The builder manages all aspects of code generation, including
-automatically recompiling Slice files that have changed, removing
-obsolete generated classes, and tracking dependencies.
+___Note:___ Ice Buidler for Xcode has been changed from a Xcode plug-in to a command line program due to recent
+Xcode developments. If you are using Xcode 7 or earlier, you may still use the older Ice Buidler for Xcode plug-in,
+located [here](https://github.com/zeroc-ice/ice-builder-xcode/tree/xcode-plugin).
 
 ## Install
 
-We recommend using Alcatraz (http://alcatraz.io) to install the
-builder. Look for *IceBuilder* in the Alcatraz package list and click
-`Install` to install it. Restart Xcode after the plug-in installation.
-
-If not using Alcatraz, open and build the IceBuilder Xcode project
-from this repository to install the Xcode plug-in in:
-```
-~/Library/Application Support/Developer/Shared/Xcode/Plug-ins
-```
-Restart Xcode after the plug-in installation.
-
-To uninstall the plug-in, remove `IceBuilder.xcplugin` from:
-```
-~/Library/Application Support/Developer/Shared/Xcode/Plug-ins
-```
+Download [icebuilder](icebulider) to any path on your system. For example, `/usr/local/bin/icebuilder`.
 
 ## Usage
 
-### Adding Slice Files to an Xcode Project
+### Options
 
-To add an existing Slice file, select a folder in the project, select File, and
-choose Add -> Existing Files...
+| Option        | Description                                     |
+| :-----------: | ----------------------------------------------- |
+| -c, --cpp     | Use slice2cpp. Default is slice2objc.           |
+| -h, --help    | Print usage message.                            |
+| -v, --version | Display Ice Builder for Xcode version.          |
+| -- ARGS       | Arguments passed directly to the slice compiler.|
 
-To create a new Slice file, select a folder in the project, select File, and
-choose New -> New Files... Select the Other category and choose Empty File as
-the file type. Save the file with a .ice extension.
 
-### Configuring Xcode Project Settings
+### Xcode Build Rule
 
-The Xcode plug-in is configured using the per-target info build settings, just
-as you would configure the compiler settings. Select a target, and then select
-the build settings tab, and enter `Ice Builder` in the Search in Build Settings field.
+To use Ice Builder for Xcode you must create a custom build rule in your Xcode project. The following settings are
+good starting point; however, you may need to modify them depending on your project's needs.
 
-The settings are separated into sections: `Ice Builder - General Options` and `Ice Builder - Slice Compiler Options`.
+* Process: `*.ice`
 
-#### Ice Builder - General Options
+* Using: Custom script
 
-| Setting                                      | Name                       | Description                                                                                                                                                                                                            |
-| -------------------------------------------- | :------------------------: | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Generate Code for C++ Instead of Objective-C | `SLICE_CPP_FLAG`           | Set this option to compile Slice files to C++ instead of Objective-C.                                                                                                    |
-| Ice Home                                     | `SLICE_ICE_HOME`           | Leave this option unset if building with Ice Touch or the Ice Xcode SDKs. Otherwise, if using a homebrew Ice installation or regular Ice, set this to the location of the installation (e.g.: `/usr/local` or `/Library/Developer/Ice-3.5`). |
-| Link with Ice Services Client Libraries      | `SLICE_LINK_WITH_SERVICES` | Link with Glacier2, IceStorm and IceGrid client libraries.                                                                                                                                                             |
+    ```
+    /usr/local/bin/icebuilder [--cpp] [-- extra slice compiler agruments]
+    ```
 
-#### Ice Builder - Slice Compiler Options
+* Output Files:
+    * `$(DERIVED_FILE_DIR)/$(INPUT_FILE_BASE).h`
+    * `$(DERIVED_FILE_DIR)/$(INPUT_FILE_BASE).cpp` (For a C++ project)
+    * `$(DERIVED_FILE_DIR)/$(INPUT_FILE_BASE).m` (For an Objective-C project)
 
-| Setting                                       | Name                             | Description                                                                                                      |
-| --------------------------------------------- | :------------------------------: | ---------------------------------------------------------------------------------------------------------------- |
-| Additional Include Directories                | `SLICE_INCLUDE_PATH`             | The list of directories to search for Slice files (`-I` option). The Ice Slice files are automatically included. |
-| Additional Options                            | `SLICE_ADDITIONAL_OPTIONS`       | Additional options to pass to the Slice compiler.                                                                |
-| Allow Reserved Ice Prefix in Identifiers      | `SLICE_ICE_FLAG`                 | Pass `--ice` to the Slice compiler.                                                                              |
-| Allow Underscores in Identifiers              | `SLICE_UNDERSCORE_FLAG`          | Pass `--underscore` to the Slice compiler.                                                                       |
-| Base Directory for Generated #include/#import | `SLICE_INCLUDE_DIR`              | Directory to use as the header include directory in source files.                                                |
-| DLL Export Macro                              | `SLICE_DLL_EXPORT`               | Provide support for placing the generated code in a shared library (`--dll-export` option).                      |
-| Generate Helper Functions For Streaming       | `SLICE_STREAM_FLAG`              | Pass `--stream` to the Slice compiler (C++ only).                                                                |
-| Generate Slice Checksums                      | `SLICE_CHECKSUM_FLAG`            | Pass `--checksum` to the Slice compiler (C++ only).                                                              |
-| Output Directory                              | `SLICE_OUTPUT_DIR`               | Directory to place files generated by the Slice compiler.                                                        |
-| Preprocessor Macros                           | `SLICE_PREPROCESSOR_DEFINITIONS` | Set the list of preprocessor macros to define (`-D` option).                                                     |
-
-You can also define Slice compiler options for individual Slice source files.
-Select your project in the Project Navigator, select the relevant target (you
-may have only one), then select the Build Phases tab, expand the Compile
-Sources phase and the Compiler Flags column lets you set each file's options
-for that target.
-
-### Xcode Project Settings for Cocoa and iPhone Applications
-
-For Cocoa and iPhone applications, which use the IceTouch or Ice Xcode SDKs, you
-must add the appropriate directory to the `Additional SDKs` setting:
-
-|Distribution | Language        | Location                                                         |
-|-------------| ----------------|------------------------------------------------------------------|
-| IceTouch    | Objective-C SDK | `/Library/Developer/IceTouch-1.3/SDKs/ObjC/$(PLATFORM_NAME).sdk` |
-| IceTouch    | C++ SDK         | `/Library/Developer/IceTouch-1.3/SDKs/Cpp/$(PLATFORM_NAME).sdk`  |
-| Ice >= 3.7  | Objective-C SDK | `/usr/local/lib/IceSDK/$(PLATFORM_NAME).sdk`                     |
-| Ice >= 3.7  | C++ SDK         | `/usr/local/lib/IceSDK/$(PLATFORM_NAME).sdk`                     |
-
-You must also link with the following Frameworks:
-* `Security.framework` (OS X and iOS)
-* `CFNetwork.framework` (iOS only)
-* `UIKit.framework` (iOS only)
-
-To use the iAP transport on iOS, you will also need to add the `-lIceIAP` option
-to the `Other Linker Flags` setting and link with the
-`ExternalAccessory.framework` framework.
-
-### Configuring Non-SDK Builds
-
-For non-SDK builds, you must configure the location of the Ice header
-and library directories. Under the Search Paths section in the project
-build settings:
-* Add `Ice installation/include` to the Header Search Paths setting.
-* Add `Ice installation/lib` to the Library Search Paths setting.
-
-### Generating Code using Xcode
-
-The builder compiles a Slice file whenever you build the project. The
-builder tracks dependencies among Slice files in the project and
-recompiles only those files that require it after a change.
+![ Xcode Custom Build Rule](Xcode Custom Build Rule.png)

@@ -1,0 +1,141 @@
+#!/bin/bash
+# **********************************************************************
+#
+# Copyright (c) 2008-2016 ZeroC, Inc. All rights reserved.
+#
+# **********************************************************************
+set -eo pipefail
+
+readonly ICE_BUILDER_XCODE_VERSION=3.0.0
+
+calledFromXcode() {
+    if [[ -z $XCODE_PRODUCT_BUILD_VERSION || -z $DERIVED_FILE_DIR || -z $INPUT_FILE_PATH ]]; then
+        return 1
+    fi
+    return 0
+}
+
+# Run slice sliceCompiler. We alaways include Ice slice file directory as well as the INPUT_FILE_DIR.
+compileSliceFile() {
+    logDebug "Compiling slice file: $INPUT_FILE_NAME"
+    set -x
+    $sliceCompiler -I"$INPUT_FILE_DIR" \
+                   -I"$sliceDir" \
+                   --output-dir "$DERIVED_FILE_DIR" \
+                   "${sliceCompilerArguments[@]}" \
+                   "$INPUT_FILE_PATH"
+}
+
+main() {
+    if ! calledFromXcode; then
+        logError "Ice Builder for Xcode must be executed from an Xcode environment."
+        exit 0
+    fi
+
+    if ! findIceSDK; then
+        logError "Unable to find an Ice SDK. An Ice SDK must be added to the list of 'Additional SDKs'."
+        exit 1
+    fi
+
+    logDebug "Ice SDK (absolute path): $iceSDK"
+
+    readonly iceVersion=$("$sliceCompiler" -v 2>&1)
+    logDebug "Ice version: $iceVersion"
+
+    # Compile Slice file
+    compileSliceFile
+}
+
+logDebug() {
+    [ -z "$DEBUG" ] || echo "$*"
+}
+
+logError() {
+    echo "$*" >&2
+}
+
+findIceSDK() {
+    for sdk in $ADDITIONAL_SDK_DIRS; do
+        local -r sdkDir=$(dirname "$sdk")
+        if [[ "$sdk" =~ "IceTouch" ]] || [[ "$sdk" =~ "IceSDK" ]]; then
+            iceSDK="$sdk"
+            sliceDir="${sdkDir}/slice"                          # Slice file directory included the SDK
+            sliceCompiler="${sdkDir}/bin/slice2${language}"     # Either 'slice2cpp' or 'slice2objc'
+            if ! validateSDK; then
+                logError "Unable to validate Ice SDK."
+                continue # Keep looking
+            fi
+            return 0
+        else
+            continue
+        fi
+    done
+    # Unable to find sdk
+    return 1
+}
+
+printUsage() {
+    cat <<EOF
+Usage: $(basename "$0") [options] [-- <slice compiler flags>]
+Options:
+-c, --cpp       Use slice2cpp. Default is slice2objc.
+-h, --help      Show this message.
+-v, --version   Display Ice Builder for Xcode version.
+-- ARGS         Pass agruments directly to the slice compiler.
+EOF
+}
+
+validateSDK() {
+    logDebug "Slice file directory: $sliceDir"
+    if [ ! -d "$sliceDir" ]; then
+        logError "Ice SDK slice files can not be found: $sliceDir"
+        return 1
+    fi
+
+    logDebug "Slice compiler: $sliceCompiler"
+    if [ ! -e "$sliceCompiler" ]; then
+        logError "Slice compiler '$sliceCompiler' does not exist"
+        return 1
+    fi
+}
+
+versionGt() {
+    test "$(echo "$@" | tr " " "\n" | sort -V | head -n 1)" != "$1";
+}
+
+#
+# Procress arguments and run slice compiler
+#
+logDebug "Ice Builder for Xcode version: $ICE_BUILDER_XCODE_VERSION"
+
+sliceCompilerArguments=()
+language=objc
+
+while [[ $# -gt 0 ]]; do
+    opt="$1"
+    case $opt in
+        -c|--cpp)
+            language=cpp
+            ;;
+        -h|--help)
+            printUsage
+            exit
+            ;;
+        -v|--version)
+            echo "$ICE_BUILDER_XCODE_VERSION"
+            exit
+            ;;
+        --)
+            shift
+            sliceCompilerArguments=("$@")
+            break
+            ;;
+        *)
+            logError "Unknown option: '$opt'"
+            exit 1
+        ;;
+    esac
+    shift
+done
+
+main

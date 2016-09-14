@@ -1,6 +1,0 @@
-language: objective-c
-xcode_project: IceBuilder.xcodeproj
-xcode_scheme: IceBuilder
-notifications:
-  slack:
-    secure: GSzcKpPvxFs29fZKJseajWgmzthKFGphAwALkZlmxAl7318rmD+bR1Lyg5ICWUxipoV0wsJSqL9JSaJRd/srq5SzkBPKZh4QLc2aaumt2Tded/AW2mTQlWgz1D6T0u+E06/izPXq5k4Qcnm9nvihwNKkT7LLK9bbJUxVSEZQFNY=
