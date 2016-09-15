@@ -1,9 +1,10 @@
 [![Build Status](https://travis-ci.org/zeroc-ice/ice-builder-xcode.svg)](https://travis-ci.org/zeroc-ice/ice-builder-xcode)
 
-# Ice Builder for Xcode
+# Ice Builder for Xcode 7
 
-Ice Builder for Xcode is an Xcode plug-in to compile Slice files to
-C++ or Objective-C.
+Ice Builder for Xcode is an Xcode 7 plug-in to compile Slice files to C++ or Objective-C.
+
+If you require Xcode 8 or later you will need to update to the latest [Ice Builder for Xcode](https://github.com/zeroc-ice/ice-builder-xcode).
 
 The builder manages all aspects of code generation, including
 automatically recompiling Slice files that have changed, removing
@@ -85,10 +86,10 @@ for that target.
 For Cocoa and iPhone applications, which use the IceTouch Xcode SDK, you must
 add the appropriate directory to the `Additional SDKs` setting:
 
-| Language        | Location                                                         |
-| ----------------|------------------------------------------------------------------|
-| Objective-C SDK | `/Library/Developer/IceTouch-1.3/SDKs/ObjC/$(PLATFORM_NAME).sdk` |
-| C++ SDK         | `/Library/Developer/IceTouch-1.3/SDKs/Cpp/$(PLATFORM_NAME).sdk`  |
+| Language         | Location                                                           |
+| ---------------- | ------------------------------------------------------------------ |
+| Objective-C SDK  | `/usr/local/lib/IceTouch/ObjC/$(PLATFORM_NAME).sdk`                |
+| C++ SDK          | `/usr/local/lib/IceTouch/Cpp/$(PLATFORM_NAME).sdk`                 |
 
 You must also add the following to the Frameworks folder:
 * `Security.framework` (OS X and iOS)
@@ -105,5 +106,5 @@ build settings:
 ### Generating Code using Xcode
 
 The builder compiles a Slice file whenever you build the project. The
-extension tracks dependencies among Slice files in the project and
+builder tracks dependencies among Slice files in the project and
 recompiles only those files that require it after a change.
