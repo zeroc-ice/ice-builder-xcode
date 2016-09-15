@@ -8,7 +8,7 @@ located [here](https://github.com/zeroc-ice/ice-builder-xcode/tree/xcode-plugin)
 
 ## Install
 
-Download [icebuilder](icebulider) to any path on your system. For example, `/usr/local/bin/icebuilder`.
+Download [icebuilder](icebuilder) to any path on your system. For example, `/usr/local/bin/icebuilder`.
 
 ## Usage
 
