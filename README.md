@@ -16,7 +16,7 @@ Download [icebuilder](icebuilder) to any path on your system. For example, `/usr
 
 | Option        | Description                                     |
 | :-----------: | ----------------------------------------------- |
-| -c, --cpp     | Use slice2cpp. Default is slice2objc.           |
+| --cpp         | Use slice2cpp. Default is slice2objc.           |
 | -h, --help    | Print usage message.                            |
 | -v, --version | Display Ice Builder for Xcode version.          |
 | -- ARGS       | Arguments passed directly to the slice compiler.|

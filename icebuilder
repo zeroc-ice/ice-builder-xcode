@@ -78,7 +78,7 @@ printUsage() {
     cat <<EOF
 Usage: $(basename "$0") [options] [-- <slice compiler flags>]
 Options:
--c, --cpp       Use slice2cpp. Default is slice2objc.
+--cpp           Use slice2cpp. Default is slice2objc.
 -h, --help      Show this message.
 -v, --version   Display Ice Builder for Xcode version.
 -- ARGS         Pass agruments directly to the slice compiler.
@@ -114,7 +114,7 @@ language=objc
 while [[ $# -gt 0 ]]; do
     opt="$1"
     case $opt in
-        -c|--cpp)
+        --cpp)
             language=cpp
             ;;
         -h|--help)
