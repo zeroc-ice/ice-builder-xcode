@@ -89,6 +89,7 @@ You must also link with the following Frameworks:
 To use the iAP transport on iOS, you will also need to add the `-lIceIAP` option
 to the `Other Linker Flags` setting and link with the `ExternalAccessory.framework` framework.
 
+To use the `IceDiscovery` or `IceLocatorDiscovery` plugins, you should add the `-lIceDiscovery` or `-lIceLocatorDiscovery` option to the `Other Linker Flags` setting.
 
 ### Generating Code using Xcode
 
