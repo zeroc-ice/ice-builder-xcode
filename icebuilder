@@ -15,7 +15,7 @@ calledFromXcode() {
     return 0
 }
 
-# Run slice sliceCompiler. We alaways include Ice slice file directory as well as the INPUT_FILE_DIR.
+# Run slice sliceCompiler. We always include Ice slice file directory as well as the INPUT_FILE_DIR.
 compileSliceFile() {
     logDebug "Compiling slice file: $INPUT_FILE_NAME"
     set -x

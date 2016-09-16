@@ -59,9 +59,9 @@ You also need to add the following linker options to the `Other Linker Flags` se
 | Distribution | Language    | Required                                                    | Optional Services                                                                          |
 | ------------ | --------    | --------                                                    | ------------------                                                                         |
 | All          | All         | `-liconv` `-lbz2` `-lc++`                                   |                                                                                            |
-| Ice Touch    | Objective-C | `-Objc` `-lIceObjc`                                         | `-lGlacier2Objc` `-lIceStormObjc` `-lIceGridObjc`                                          |
+| Ice Touch    | Objective-C | `-ObjC` `-lIceObjC`                                         | `-lGlacier2ObjC` `-lIceStormObjC` `-lIceGridObjC`                                          |
 | Ice Touch    | C++         | `-lIce`                                                     | `-lGlacier2` `-lIceStorm` `-lIceGrid`                                                      |
-| Ice >= 3.7   | Objective-C | `-Objc`<br>`-lIce` `-lIceObjc`<br>`-lIceSSL` `-lIceSSLObjc` | `-lGlacier2` `-lIceStorm` `-lIceGrid`<br>`-lGlacier2Objc` `-lIceStormObjc` `-lIceGridObjc` |
+| Ice >= 3.7   | Objective-C | `-ObjC`<br>`-lIce` `-lIceObjC`<br>`-lIceSSL` `-lIceSSLObjC` | `-lGlacier2` `-lIceStorm` `-lIceGrid`<br>`-lGlacier2ObjC` `-lIceStormObjC` `-lIceGridObjC` |
 | Ice >= 3.7   | C++         | `-lIce` `-lIceSSL`                                          | `-lGlacier2` `-lIceStorm` `-lIceGrid`                                                      |
 
 <!-- * __All Distributions and Languages__
@@ -70,14 +70,14 @@ You also need to add the following linker options to the `Other Linker Flags` se
     * `-lIce`
     * Services: `-lGlacier2`, `-lIceStorm`, `-lIceGrid`
 * __Ice Touch Objective-C SDK__
-    * `-lIceObjc` and `-Objc`
-    * Services: `-lGlacier2Objc`, `-lIceStormObjc`, `-lIceGridObjc`
+    * `-lIceObjC` and `-ObjC`
+    * Services: `-lGlacier2ObjC`, `-lIceStormObjC`, `-lIceGridObjC`
 * __Ice >= 3.7 C++ SDK__
     * `-lIce` and `-lIceSSL`
     * Services: `-lGlacier2`, `-lIceStorm`, `-lIceGrid`
 * __Ice >= 3.7 Objective-C SDK__
-    * `-lIce`, `-lIceObjc`,  `-lIceSSL`, `-lIceSSLObjc`, and `-Objc`
-    * Services: `-lGlacier2Objc`, `-lIceStormObjc`, `-lIceGridObjc` -->
+    * `-lIce`, `-lIceObjC`,  `-lIceSSL`, `-lIceSSLObjC`, and `-ObjC`
+    * Services: `-lGlacier2ObjC`, `-lIceStormObjC`, `-lIceGridObjC` -->
 
 
 You must also link with the following Frameworks:
