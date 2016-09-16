@@ -1,10 +1,10 @@
 # Ice Builder for Xcode
 
 Ice Builder for Xcode is a command line program to help compile Slice files to C++ or Objective-C in Xcode. It supports
-all recent versions of Xcode, including _Xcode 8_.
+recent versions of Xcode, including Xcode 8 and Xcode 7.
 
-___Note:___ Ice Buidler for Xcode has been changed from a Xcode plug-in to a command line program due to recent
-Xcode developments. If you are using Xcode 7, you can still use the [Ice Buidler for Xcode plug-in][1].
+___Note:___ Ice Builder for Xcode has been changed from an Xcode plug-in to a command line program due to recent
+Xcode developments. If you are using Xcode 7, you can still use the [Ice Builder for Xcode plug-in][1].
 
 ## Install
 
@@ -49,8 +49,8 @@ must add the appropriate directory to the `Additional SDKs` setting:
 
 | Distribution  | Language          | Location                                                           |
 | ------------- | ----------------- | ------------------------------------------------------------------ |
-| Ice Touch     | Objective-C   | `/usr/local/lib/IceTouch/ObjC/$(PLATFORM_NAME).sdk`                |
-| Ice Touch     | C++           | `/usr/local/lib/IceTouch/Cpp/$(PLATFORM_NAME).sdk`                 |
+| Ice Touch 3.6 | Objective-C   | `/usr/local/lib/IceTouch/ObjC/$(PLATFORM_NAME).sdk`                |
+| Ice Touch 3.6 | C++           | `/usr/local/lib/IceTouch/Cpp/$(PLATFORM_NAME).sdk`                 |
 | Ice >= 3.7    | Objective-C   | `/usr/local/lib/IceSDK/$(PLATFORM_NAME).sdk`                       |
 | Ice >= 3.7    | C++           | `/usr/local/lib/IceSDK/$(PLATFORM_NAME).sdk`                       |
 
