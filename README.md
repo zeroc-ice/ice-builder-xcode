@@ -74,10 +74,10 @@ You also need to add the following linker options to the `Other Linker Flags` se
 | Ice 3.7      | C++         | `-lIce`                     | `-lIceDiscovery`<br> `-lIceIAP`<br> `-lIceLocatorDiscovery`<br> `-lIceSSL`                                | `-lGlacier2`<br>`-lIceGrid`<br> `-lIceStorm`             |
 
 You must also link with the following Frameworks:
-* `Security.framework` (OS X and iOS)
-* `CFNetwork.framework` (iOS only)
-* `UIKit.framework` (iOS only)
-* `ExternalAccessory.framework` (iOS with Ice iAP plugin only)
+* `Security.framework` (Ice Touch all the time, Ice when linking with IceSSL)
+* `CFNetwork.framework` (iOS)
+* `UIKit.framework` (iOS)
+* `ExternalAccessory.framework` (iOS when linking with IceIAP)
 
 ### Generating Code using Xcode
 
