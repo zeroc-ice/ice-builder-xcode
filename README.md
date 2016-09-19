@@ -56,13 +56,13 @@ must add the appropriate directory to the `Additional SDKs` setting:
 
 You also need to add the following linker options to the `Other Linker Flags` setting:
 
-| Distribution | Language    | Required                    | SSL                       | Optional Services                                       |
+| Distribution | Language    | Required                    | Ice Plugins               | Optional Services                                       |
 | ------------ | --------    | --------                    | ---                       |-----------------                                        |
 | All          | All         | `-liconv` `-lbz2` `-lc++`   |                           |                                                         |
 | Ice Touch    | Objective-C | `-ObjC` `-lIceObjC`         |                           | `-lGlacier2ObjC`<br>`-lIceStormObjC`<br>`-lIceGridObjC` |
-| Ice Touch    | C++         | `-lIce`                     |                           | `-lGlacier2`<br>`-lIceStorm`<br>`-lIceGrid`             |
-| Ice 3.7   | Objective-C | `-ObjC` `-lIce` `-lIceObjC` | `-lIceSSL` `-lIceSSLObjC` | `-lGlacier2ObjC`<br>`-lIceStormObjC`<br>`-lIceGridObjC` |
-| Ice 3.7   | C++         | `-lIce`                     | `-lIceSSL`                | `-lGlacier2`<br>`-lIceStorm`<br>`-lIceGrid`             |
+| Ice Touch    | C++         | `-lIce`                     |                           | `-lGlacier2`<br>`-lIceGrid`<br>`-lIceStorm` |
+| Ice 3.7   | Objective-C | `-ObjC` `-lIce` `-lIceObjC` | `-lIceDiscovery`<br> `-lIceIAP` `-lIceIAPObjC`<br>  `-lIceLocatorDiscovery`<br> `-lIceSSL` `-lIceSSLObjC` | `-lGlacier2ObjC`<br>`-lIceGridObjC`<br> `-lIceStormObjC` |
+| Ice 3.7   | C++         | `-lIce`                     | `-lIceDiscovery`<br> `-lIceIAP`<br> `-lIceLocatorDiscovery`<br> `-lIceSSL`                | `-lGlacier2`<br>`-lIceGrid`<br> `-lIceStorm` |
 
 
 <!-- * __All Distributions and Languages__
@@ -73,10 +73,10 @@ You also need to add the following linker options to the `Other Linker Flags` se
 * __Ice Touch Objective-C SDK__
     * `-lIceObjC` and `-ObjC`
     * Services: `-lGlacier2ObjC`, `-lIceStormObjC`, `-lIceGridObjC`
-* __Ice >= 3.7 C++ SDK__
+* __Ice 3.7 C++ SDK__
     * `-lIce` and `-lIceSSL`
     * Services: `-lGlacier2`, `-lIceStorm`, `-lIceGrid`
-* __Ice >= 3.7 Objective-C SDK__
+* __Ice 3.7 Objective-C SDK__
     * `-lIce`, `-lIceObjC`,  `-lIceSSL`, `-lIceSSLObjC`, and `-ObjC`
     * Services: `-lGlacier2ObjC`, `-lIceStormObjC`, `-lIceGridObjC` -->
 
@@ -85,11 +85,7 @@ You must also link with the following Frameworks:
 * `Security.framework` (OS X and iOS)
 * `CFNetwork.framework` (iOS only)
 * `UIKit.framework` (iOS only)
-
-To use the iAP transport on iOS, you will also need to add the `-lIceIAP` option
-to the `Other Linker Flags` setting and link with the `ExternalAccessory.framework` framework.
-
-To use the `IceDiscovery` or `IceLocatorDiscovery` plugins, you should add the `-lIceDiscovery` or `-lIceLocatorDiscovery` option to the `Other Linker Flags` setting.
+* `ExternalAccessory.framework` (iOS with Ice iAP plugin only)
 
 ### Generating Code using Xcode
 
