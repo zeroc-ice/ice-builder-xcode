@@ -81,9 +81,9 @@ You must also link with the following Frameworks:
 
 ### Generating Code using Xcode
 
-The builder will always compile a Slice file when called from Xcode; however, Xcode custom build rules are only executed
-when either the given `Output Files` do not exist or are older than the file being processed. To force your Slice files
-to be re-compiled must clean (⇧⌘K) your project, then build (⌘B).
+The builder will always compile a Slice file when executed by an Xcode custom build rule; however, Xcode custom build
+rules are only executed when either the given `Output Files` do not exist or are older than the file being processed.
+To force your Slice files to be re-compiled you need to clean (⇧⌘K) your project, then build (⌘B).
 
 The builder automatically includes the Ice Slice files directory included with the Ice or Ice Touch SDK as well as the
 directory of the Slice file being compiled.
