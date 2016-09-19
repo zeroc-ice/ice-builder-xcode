@@ -82,7 +82,7 @@ You must also link with the following Frameworks:
 ### Generating Code using Xcode
 
 The builder compiles a Slice file whenever you build the project. The builder automatically includes the Ice Slice files
-directory included with the SDK as well as the path of the user Slice file being compiled.
+directory included with the Ice or Ice Touch SDK as well as the directory of the Slice file being compiled.
 
 [1]: https://github.com/zeroc-ice/ice-builder-xcode/tree/xcode7-plugin
 [2]: https://doc.zeroc.com/display/Ice/slice2cpp+Command-Line+Options
