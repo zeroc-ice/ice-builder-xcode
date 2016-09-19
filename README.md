@@ -51,8 +51,8 @@ must add the appropriate directory to the `Additional SDKs` setting:
 | ------------- | ----------------- | ------------------------------------------------------------------ |
 | Ice Touch 3.6 | Objective-C   | `/usr/local/lib/IceTouch/ObjC/$(PLATFORM_NAME).sdk`                |
 | Ice Touch 3.6 | C++           | `/usr/local/lib/IceTouch/Cpp/$(PLATFORM_NAME).sdk`                 |
-| Ice >= 3.7    | Objective-C   | `/usr/local/lib/IceSDK/$(PLATFORM_NAME).sdk`                       |
-| Ice >= 3.7    | C++           | `/usr/local/lib/IceSDK/$(PLATFORM_NAME).sdk`                       |
+| Ice 3.7       | Objective-C   | `/usr/local/lib/IceSDK/$(PLATFORM_NAME).sdk`                       |
+| Ice 3.7       | C++           | `/usr/local/lib/IceSDK/$(PLATFORM_NAME).sdk`                       |
 
 You also need to add the following linker options to the `Other Linker Flags` setting:
 
@@ -61,8 +61,8 @@ You also need to add the following linker options to the `Other Linker Flags` se
 | All          | All         | `-liconv` `-lbz2` `-lc++`   |                           |                                                         |
 | Ice Touch    | Objective-C | `-ObjC` `-lIceObjC`         |                           | `-lGlacier2ObjC`<br>`-lIceStormObjC`<br>`-lIceGridObjC` |
 | Ice Touch    | C++         | `-lIce`                     |                           | `-lGlacier2`<br>`-lIceStorm`<br>`-lIceGrid`             |
-| Ice >= 3.7   | Objective-C | `-ObjC` `-lIce` `-lIceObjC` | `-lIceSSL` `-lIceSSLObjC` | `-lGlacier2ObjC`<br>`-lIceStormObjC`<br>`-lIceGridObjC` |
-| Ice >= 3.7   | C++         | `-lIce`                     | `-lIceSSL`                | `-lGlacier2`<br>`-lIceStorm`<br>`-lIceGrid`             |
+| Ice 3.7   | Objective-C | `-ObjC` `-lIce` `-lIceObjC` | `-lIceSSL` `-lIceSSLObjC` | `-lGlacier2ObjC`<br>`-lIceStormObjC`<br>`-lIceGridObjC` |
+| Ice 3.7   | C++         | `-lIce`                     | `-lIceSSL`                | `-lGlacier2`<br>`-lIceStorm`<br>`-lIceGrid`             |
 
 
 <!-- * __All Distributions and Languages__
