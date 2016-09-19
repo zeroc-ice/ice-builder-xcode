@@ -10,7 +10,7 @@ Xcode developments. If you are using Xcode 7, you can still use the [Ice Builder
 
 ### Homebrew
 
-You can install Ice Builder for Xcode using Homebrew by running the follow commands:
+You can install Ice Builder for Xcode using Homebrew by running the following commands:
 
     brew tap zeroc-ice/tap
     brew install ice-builder-xcode
@@ -35,7 +35,7 @@ provide through the args property.
 
 ### Xcode Build Rule
 
-To use Ice Builder for Xcode you must create a custom build rule in your Xcode project. The following settings are
+To use Ice Builder for Xcode you must create a custom build rule in your Xcode project. The following settings are a
 good starting point; however, you may need to modify them depending on your project's needs.
 
 * __Process__: `*.ice`
