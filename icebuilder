@@ -6,7 +6,7 @@
 # **********************************************************************
 set -eo pipefail
 
-readonly ICE_BUILDER_XCODE_VERSION=3.0.0
+readonly ICE_BUILDER_XCODE_VERSION=3.0.1
 
 calledFromXcode() {
     if [[ -z $XCODE_PRODUCT_BUILD_VERSION || -z $DERIVED_FILE_DIR || -z $INPUT_FILE_PATH ]]; then
@@ -18,12 +18,38 @@ calledFromXcode() {
 # Run slice sliceCompiler. We always include Ice slice file directory as well as the INPUT_FILE_DIR.
 compileSliceFile() {
     logDebug "Compiling slice file: $INPUT_FILE_NAME"
-    set -x
+    set -x # print the executed slice compiler command
     $sliceCompiler -I"$INPUT_FILE_DIR" \
                    -I"$sliceDir" \
-                   --output-dir "$DERIVED_FILE_DIR" \
+                   --output-dir "$outputDir" \
                    "${sliceCompilerArguments[@]}" \
                    "$INPUT_FILE_PATH"
+}
+
+# Output directory is detected by comparing the SCRIPT_OUTPUT_FILE_{0,1} variables.
+# These are expected to the be the destination of the slice compiler generated header
+# and source files. Both files must share the same base directory, as this is how we
+# determine the output directory to pass to the slice compiler.
+setOutputDir() {
+    if [ "$SCRIPT_OUTPUT_FILE_COUNT" -ne 2 ]; then
+        echo "Please specify a header and source output file."
+        return 1
+    fi
+
+    local -r outputFile0=${SCRIPT_OUTPUT_FILE_0}
+    logDebug "Output file 0: $outputFile0"
+    local -r outputFile1=${SCRIPT_OUTPUT_FILE_1}
+    logDebug "Output file 1: $outputFile1"
+
+    local -r outputFileDir0=$(dirname "$outputFile0")
+    local -r outputFileDir1=$(dirname "$outputFile1")
+
+    if [ "$outputFileDir0" != "$outputFileDir1" ]; then
+        echo "Output files must be in the same directory."
+        return 1
+    fi
+
+    outputDir="$outputFileDir0"
 }
 
 main() {
@@ -32,8 +58,12 @@ main() {
         exit 0
     fi
 
+    if ! setOutputDir; then
+        exit 1
+    fi
+
     if ! findIceSDK; then
-        logError "Unable to find an Ice SDK. An Ice SDK must be added to the list of 'Additional SDKs'."
+        logError "Unable to find an Ice or Ice Touch SDK. An Ice or Ice Touch SDK must be added to the list of 'Additional SDKs'."
         exit 1
     fi
 
@@ -104,7 +134,7 @@ versionGt() {
 }
 
 #
-# Procress arguments and run slice compiler
+# Process arguments and run slice compiler
 #
 logDebug "Ice Builder for Xcode version: $ICE_BUILDER_XCODE_VERSION"
 

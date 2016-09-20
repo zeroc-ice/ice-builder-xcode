@@ -67,14 +67,14 @@ must add the appropriate directory to the `Additional SDKs` setting:
 
 You also need to add the following linker options to the `Other Linker Flags` setting:
 
-| Distribution  | Language    | Required                            | Ice Plugins                                                                                               | Optional Services                                                            |
-| ------------  | ----------- | ----------------------------------- | ----------------------------------------------------------------------------------------------------------| ---------------------------------------------------------------------------- |
-| Ice Touch 1.3 | Objective-C | `-ObjC`<br>`-lIceObjC-libc++`<br>`-lc++`  |                                                                                                           | `-lGlacier2ObjC-libc++`<br>`-lIceStormObjC-libc++`<br>`-lIceGridObjC-libc++` |
-| Ice Touch 1.3 | C++         | `-lIce-libc++`                      |                                                                                                           | `-lGlacier2-libc++`<br>`-lIceGrid-libc++`<br>`-lIceStorm-libc++`             |
-| Ice Touch 3.6 | Objective-C | `-ObjC`<br>`-lIceObjC`<br>`-lc++`         |                                                                                                           | `-lGlacier2ObjC`<br>`-lIceStormObjC`<br>`-lIceGridObjC`                      |
-| Ice Touch 3.6 | C++         | `-lIce`                             |                                                                                                           | `-lGlacier2`<br>`-lIceGrid`<br>`-lIceStorm`                                  |
-| Ice 3.7       | Objective-C | `-ObjC`<br>`-lIce`<br>`-lIceObjC`<br>`-lc++` | `-lIceDiscovery`<br> `-lIceIAP` `-lIceIAPObjC`<br>  `-lIceLocatorDiscovery`<br> `-lIceSSL` `-lIceSSLObjC` | `-lGlacier2ObjC`<br>`-lIceGridObjC`<br> `-lIceStormObjC`                     |
-| Ice 3.7       | C++         | `-lIce`                             | `-lIceDiscovery`<br> `-lIceIAP`<br> `-lIceLocatorDiscovery`<br> `-lIceSSL`                                | `-lGlacier2`<br>`-lIceGrid`<br> `-lIceStorm`                                 |
+| Distribution  | Language    | Required                                     | Ice Plugins                                                                                                | Optional Services                                                            |
+| ------------  | ----------- | -----------------------------------          | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| Ice Touch 1.3 | Objective-C | `-ObjC`<br>`-lIceObjC-libc++`<br>`-lc++`     |                                                                                                            | `-lGlacier2ObjC-libc++`<br>`-lIceStormObjC-libc++`<br>`-lIceGridObjC-libc++` |
+| Ice Touch 1.3 | C++         | `-lIce-libc++`                               |                                                                                                            | `-lGlacier2-libc++`<br>`-lIceGrid-libc++`<br>`-lIceStorm-libc++`             |
+| Ice Touch 3.6 | Objective-C | `-ObjC`<br>`-lIceObjC`<br>`-lc++`            |                                                                                                            | `-lGlacier2ObjC`<br>`-lIceStormObjC`<br>`-lIceGridObjC`                      |
+| Ice Touch 3.6 | C++         | `-lIce`                                      |                                                                                                            | `-lGlacier2`<br>`-lIceGrid`<br>`-lIceStorm`                                  |
+| Ice 3.7       | Objective-C | `-ObjC`<br>`-lIce`<br>`-lIceObjC`<br>`-lc++` | `-lIceDiscovery`<br> `-lIceIAP` `-lIceIAPObjC`<br>  `-lIceLocatorDiscovery`<br> `-lIceSSL` `-lIceSSLObjC`  | `-lGlacier2ObjC`<br>`-lIceGridObjC`<br> `-lIceStormObjC`                     |
+| Ice 3.7       | C++         | `-lIce`                                      | `-lIceDiscovery`<br> `-lIceIAP`<br> `-lIceLocatorDiscovery`<br> `-lIceSSL`                                 | `-lGlacier2`<br>`-lIceGrid`<br> `-lIceStorm`                                 |
 
 With Ice 3.7 (iOS and OS X) or Ice Touch (OS X only), you also need to add `-lbz2` and `-liconv`.
 
@@ -94,6 +94,9 @@ To force your Slice files to be re-compiled you need to clean (⇧⌘K) your pro
 
 The builder automatically includes the Ice Slice files directory included with the Ice or Ice Touch SDK as well as the
 directory of the Slice file being compiled.
+
+The output directory passed to the slice compiler is determined by comparing the paths of the given `Output files`.
+Exactly two files must be set and both files must share the same base directory path.
 
 [1]: https://github.com/zeroc-ice/ice-builder-xcode/tree/xcode7-plugin
 [2]: https://doc.zeroc.com/display/Ice/slice2cpp+Command-Line+Options
