@@ -58,6 +58,8 @@ must add the appropriate directory to the `Additional SDKs` setting:
 
 | Distribution  | Language          | Location                                                           |
 | ------------- | ----------------- | ------------------------------------------------------------------ |
+| Ice Touch 1.3 | Objective-C       | `/Library/Developer/IceTouch-1.3/SDKs/ObjC/$(PLATFORM_NAME).sdk`   |
+| Ice Touch 1.3 | C++               | `/Library/Developer/IceTouch-1.3/SDKs/Cpp/$(PLATFORM_NAME).sdk`    |
 | Ice Touch 3.6 | Objective-C       | `/usr/local/lib/IceTouch/ObjC/$(PLATFORM_NAME).sdk`                |
 | Ice Touch 3.6 | C++               | `/usr/local/lib/IceTouch/Cpp/$(PLATFORM_NAME).sdk`                 |
 | Ice 3.7       | Objective-C       | `/usr/local/lib/IceSDK/$(PLATFORM_NAME).sdk`                       |
@@ -65,19 +67,24 @@ must add the appropriate directory to the `Additional SDKs` setting:
 
 You also need to add the following linker options to the `Other Linker Flags` setting:
 
-| Distribution | Language    | Required                    | Ice Plugins                                                                                               | Optional Services                                        |
-| ------------ | --------    | --------------------------- | ----------------------------------------------------------------------------------------------------------| -------------------------------------------------------- |
-| All          | All         | `-liconv` `-lbz2` `-lc++`   |                                                                                                           |                                                          |
-| Ice Touch    | Objective-C | `-ObjC` `-lIceObjC`         |                                                                                                           | `-lGlacier2ObjC`<br>`-lIceStormObjC`<br>`-lIceGridObjC`  |
-| Ice Touch    | C++         | `-lIce`                     |                                                                                                           | `-lGlacier2`<br>`-lIceGrid`<br>`-lIceStorm`              |
-| Ice 3.7      | Objective-C | `-ObjC` `-lIce` `-lIceObjC` | `-lIceDiscovery`<br> `-lIceIAP` `-lIceIAPObjC`<br>  `-lIceLocatorDiscovery`<br> `-lIceSSL` `-lIceSSLObjC` | `-lGlacier2ObjC`<br>`-lIceGridObjC`<br> `-lIceStormObjC` |
-| Ice 3.7      | C++         | `-lIce`                     | `-lIceDiscovery`<br> `-lIceIAP`<br> `-lIceLocatorDiscovery`<br> `-lIceSSL`                                | `-lGlacier2`<br>`-lIceGrid`<br> `-lIceStorm`             |
+| Distribution  | Language    | Required                            | Ice Plugins                                                                                               | Optional Services                                                            |
+| ------------  | ----------- | ----------------------------------- | ----------------------------------------------------------------------------------------------------------| ---------------------------------------------------------------------------- |
+| Ice Touch 1.3 | Objective-C | `-ObjC` `-lIceObjC-libc++` `-lc++`  |                                                                                                           | `-lGlacier2ObjC-libc++`<br>`-lIceStormObjC-libc++`<br>`-lIceGridObjC-libc++` |
+| Ice Touch 1.3 | C++         | `-lIce-libc++`                      |                                                                                                           | `-lGlacier2-libc++`<br>`-lIceGrid-libc++`<br>`-lIceStorm-libc++`             |
+| Ice Touch 3.6 | Objective-C | `-ObjC` `-lIceObjC` `-lc++`         |                                                                                                           | `-lGlacier2ObjC`<br>`-lIceStormObjC`<br>`-lIceGridObjC`                      |
+| Ice Touch 3.6 | C++         | `-lIce`                             |                                                                                                           | `-lGlacier2`<br>`-lIceGrid`<br>`-lIceStorm`                                  |
+| Ice 3.7       | Objective-C | `-ObjC` `-lIce` `-lIceObjC` `-lc++` | `-lIceDiscovery`<br> `-lIceIAP` `-lIceIAPObjC`<br>  `-lIceLocatorDiscovery`<br> `-lIceSSL` `-lIceSSLObjC` | `-lGlacier2ObjC`<br>`-lIceGridObjC`<br> `-lIceStormObjC`                     |
+| Ice 3.7       | C++         | `-lIce`                             | `-lIceDiscovery`<br> `-lIceIAP`<br> `-lIceLocatorDiscovery`<br> `-lIceSSL`                                | `-lGlacier2`<br>`-lIceGrid`<br> `-lIceStorm`                                 |
+
+With Ice 3.7 (iOS and OS X) or Ice Touch (OS X only), you also need to add `-lbz2` and `-liconv`.
 
 You must also link with the following Frameworks:
 * `Security.framework` (Ice Touch all the time, Ice when linking with IceSSL)
 * `CFNetwork.framework` (iOS)
 * `UIKit.framework` (iOS)
 * `ExternalAccessory.framework` (iOS when linking with IceIAP)
+
+
 
 ### Generating Code using Xcode
 
