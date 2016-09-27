@@ -6,7 +6,7 @@
 # **********************************************************************
 set -eo pipefail
 
-readonly ICE_BUILDER_XCODE_VERSION=3.0.1
+readonly ICE_BUILDER_XCODE_VERSION=3.0.2
 
 calledFromXcode() {
     if [[ -z $XCODE_PRODUCT_BUILD_VERSION || -z $DERIVED_FILE_DIR || -z $INPUT_FILE_PATH ]]; then
