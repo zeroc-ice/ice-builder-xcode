@@ -15,6 +15,36 @@ calledFromXcode() {
     return 0
 }
 
+# Ice Builder for Xcode 3 (this) should not be used along side of Ice Builder for Xcode 2 (plug-in)
+checkOldIceBuilder() {
+    # These plug-ins will not load on Xcode 8, so just skip this check
+    if [ "$XCODE_VERSION_MAJOR" = "0800" ]; then
+        return
+    fi
+
+    local plugins=(
+        "$HOME/Library/Application Support/Developer/Shared/Xcode/Plug-ins/IceBuilder.xcplugin"
+        "/Library/Developer/IceTouch-1.3/Xcode/slice2objcplugin.pbplugin"
+    )
+    local foundPlugin=0
+    for plugin in "${plugins[@]}"; do
+        if [ -d "$plugin" ]; then
+
+            # Check for Ice Touch installed slice2objcplugin.pbplugin plug-in symlinks. Just remove these.
+            if [ "$(basename "$plugin")" = "slice2objcplugin.pbplugin" ] && \
+               [ -d "/Library/Application Support/Developer" ]; then
+                find "/Library/Application Support/Developer" -name "slice2objcplugin.pbplugin" \
+                    -exec echo "Incompatible Ice Builder plug-in detected: '{}'" \;
+                foundPlugin=1
+            else
+                echo "Incompatible Ice Builder plug-in detected: '$plugin'"
+                foundPlugin=1
+            fi
+        fi
+    done
+    return $foundPlugin
+}
+
 # Run slice sliceCompiler. We always include Ice slice file directory as well as the INPUT_FILE_DIR.
 compileSliceFile() {
     logDebug "Compiling slice file: $INPUT_FILE_NAME"
@@ -56,6 +86,11 @@ main() {
     if ! calledFromXcode; then
         logError "Ice Builder for Xcode must be executed from an Xcode environment."
         exit 0
+    fi
+
+    if ! checkOldIceBuilder; then
+        echo "Incompatible Ice Builder plug-in(s) detected. Please remove the plug-in(s) listed above."
+        exit 1
     fi
 
     if ! setOutputDir; then

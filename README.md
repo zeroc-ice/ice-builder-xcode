@@ -19,6 +19,21 @@ You can install Ice Builder for Xcode using Homebrew by running the following co
 
 Download [icebuilder](icebuilder) to any path on your system. For example: `/usr/local/bin/icebuilder`.
 
+### Old Plug-ins
+
+If you have a previous version of Ice Builder for Xcode plug-in installed you will need to uninstall it.
+
+To uninstall the plug-in, remove IceBuilder.xcplugin from:
+
+    ~/Library/Application Support/Developer/Shared/Xcode/Plug-ins
+
+If you have a previous version of the Ice Touch Xcode Plug-in installed, you must remove the following symbolic
+link to disable it:
+
+    sudo rm /Library/Application Support/Developer/{xcodeVersion}/Xcode/Plug-ins/slice2objcplugin.pbplugin
+
+Replace `{xcodeVersion}` in the path above with the Xcode version you're using.
+
 ## Usage
 
 ### Options
