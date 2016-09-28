@@ -33,12 +33,9 @@ checkOldIceBuilder() {
             # Check for Ice Touch installed slice2objcplugin.pbplugin plug-in symlinks. Just remove these.
             if [ "$(basename "$plugin")" = "slice2objcplugin.pbplugin" ] && \
                [ -d "/Library/Application Support/Developer" ]; then
-               local symlinks=$(find "/Library/Application Support/Developer" -name "slice2objcplugin.pbplugin")
-               if [ "${symlinks}" != "" ]; then
-                    find "/Library/Application Support/Developer" -name "slice2objcplugin.pbplugin" \
-                        -exec echo "Incompatible Ice Builder plug-in detected: '{}'" \;
-                    foundPlugin=1
-                fi
+                find "/Library/Application Support/Developer" -name "slice2objcplugin.pbplugin" \
+                    -exec echo "Incompatible Ice Builder plug-in detected: '{}'" \;
+                foundPlugin=1
             else
                 echo "Incompatible Ice Builder plug-in detected: '$plugin'"
                 foundPlugin=1
