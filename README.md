@@ -84,8 +84,6 @@ You must also link with the following Frameworks:
 * `UIKit.framework` (iOS)
 * `ExternalAccessory.framework` (iOS when linking with IceIAP)
 
-
-
 ### Generating Code using Xcode
 
 The builder will always compile a Slice file when executed by an Xcode custom build rule; however, Xcode custom build
