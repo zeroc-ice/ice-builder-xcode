@@ -22,7 +22,7 @@ For example: `/usr/local/bin/icebuilder`.
 ### Options
 
 | Option          | Description                                     |
-| :-------------: | ----------------------------------------------- |
+| --------------- | ----------------------------------------------- |
 | --ice-home HOME | Set the Ice home directory.                     |
 | --cpp           | Use `slice2cpp` instead of `slice2objc`.        |
 | -h, --help      | Print usage message.                            |
