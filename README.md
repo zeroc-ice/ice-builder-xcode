@@ -53,8 +53,8 @@ Slice compilation:
 To use Ice Builder for Xcode, you must create a custom build rule in your
 Xcode project. For example:
 
-* __Process__: `*.ice`
-* __Using__: _Custom script_
+* __Process__ `Source files with names matching:` `*.ice`
+* __Using__ `Custom script:`
 
     ```
     /usr/local/bin/icebuilder [options]
