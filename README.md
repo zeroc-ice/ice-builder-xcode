@@ -31,7 +31,7 @@ For example: `/usr/local/bin/icebuilder`.
 
 If you do not set the Ice home directory with `--ice-home`, the builder  first
 scans the `Additional SDKs` of your project, and attempts to find its `Ice home`
-in SDKs with `Ice Touch` or `IceSDK` in their path.
+in SDKs with `IceTouch` or `IceSDK` in their path.
 
 If there is no such SDK, the builder uses `/usr/local` as its Ice home
 directory.
