@@ -50,7 +50,7 @@ Slice compilation:
 
 ### Xcode Build Rule
 
-To use Ice Builder for Xcodem=, you must create a custom build rule in your
+To use Ice Builder for Xcode, you must create a custom build rule in your
 Xcode project. For example:
 
 * __Process__: `*.ice`
