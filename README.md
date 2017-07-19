@@ -10,7 +10,7 @@ Xcode 8.
 
 Install Ice Builder for Xcode using Homebrew by running the following commands:
 ```
-    brew install zeroc-ice/tap/ice-builder-xcode
+brew install zeroc-ice/tap/ice-builder-xcode
 ```
 ### Manually
 
@@ -40,7 +40,7 @@ Refer to the [slice2cpp][1] and [slice2objc][2] _Command Line Options_
 documentation for a description of the options you can provide through `ARGS`.
 You could for example invoke the builder with:
 ```
-    icebuilder --cpp -- -DFOO=1 --checksum
+icebuilder --cpp -- -DFOO=1 --checksum
 ```
 
 The builder automatically adds the following include directories to the
