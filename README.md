@@ -76,8 +76,13 @@ to this directory when it calls the Slice compiler.
 
 ### Xcode Build Settings
 
-For Cocoa and iPhone applications, which use the Ice Touch or Ice Xcode SDKs,
-you must add the appropriate directory to the `Additional SDKs` setting:
+#### Ice 3.7
+The Xcode build settings are described in the [Ice 3.7 Release Notes](3).
+
+#### Ice Touch
+
+For Cocoa and iPhone applications, which use the Ice Touch SDKs, you must add the 
+appropriate directory to the `Additional SDKs` setting:
 
 | Distribution  | Language          | Location                                                           |
 | ------------- | ----------------- | ------------------------------------------------------------------ |
@@ -85,8 +90,6 @@ you must add the appropriate directory to the `Additional SDKs` setting:
 | Ice Touch 1.3 | C++               | `/Library/Developer/IceTouch-1.3/SDKs/Cpp/$(PLATFORM_NAME).sdk`    |
 | Ice Touch 3.6 | Objective-C       | `/usr/local/lib/IceTouch/ObjC/$(PLATFORM_NAME).sdk`                |
 | Ice Touch 3.6 | C++               | `/usr/local/lib/IceTouch/Cpp/$(PLATFORM_NAME).sdk`                 |
-| Ice 3.7 beta  | Objective-C       | `/usr/local/lib/IceSDK/$(PLATFORM_NAME).sdk`                       |
-| Ice 3.7 beta  | C++               | `/usr/local/lib/IceSDK/$(PLATFORM_NAME).sdk`                       |
 
 You also need to add the following linker options to the `Other Linker Flags` setting:
 
@@ -96,16 +99,13 @@ You also need to add the following linker options to the `Other Linker Flags` se
 | Ice Touch 1.3 | C++         | `-lIceCpp-libc++`                            | included in the<br>IceCpp-libc++ library                                                                      | `-lGlacier2Cpp-libc++`<br>`-lIceGridCpp-libc++`<br>`-lIceStormCpp-libc++`    |
 | Ice Touch 3.6 | Objective-C | `-ObjC`<br>`-lIceObjC`<br>`-lc++`            | included in the<br>IceObjC library                                                                            | `-lGlacier2ObjC`<br>`-lIceStormObjC`<br>`-lIceGridObjC`                      |
 | Ice Touch 3.6 | C++         | `-lIce`                                      | included in the<br>Ice library                                                                                | `-lGlacier2`<br>`-lIceGrid`<br>`-lIceStorm`                                  |
-| Ice 3.7 beta  | Objective-C | `-ObjC`<br>`-lIce`<br>`-lIceObjC`<br>`-lc++` | `-lIceDiscovery`<br> `-lIceIAP` `-lIceIAPObjC`<br>  `-lIceLocatorDiscovery`<br> `-lIceSSL` `-lIceSSLObjC`  | `-lGlacier2ObjC`<br>`-lIceGridObjC`<br> `-lIceStormObjC`                     |
-| Ice 3.7 beta  | C++         | `-lIce`                                      | `-lIceDiscovery`<br> `-lIceIAP`<br> `-lIceLocatorDiscovery`<br> `-lIceSSL`                                 | `-lGlacier2`<br>`-lIceGrid`<br> `-lIceStorm`                                 |
 
-With Ice 3.7 (iOS and macOS) or Ice Touch (macOS only), you also need to add `-lbz2` and `-liconv`.
+On macOS, you also need to add `-lbz2` and `-liconv`.
 
 You must also link with the following Frameworks:
-* `Security.framework` (Ice Touch all the time, Ice when linking with IceSSL)
+* `Security.framework`
 * `CFNetwork.framework` (iOS)
 * `UIKit.framework` (iOS)
-* `ExternalAccessory.framework` (iOS when linking with IceIAP)
 
 ### Generating Code using Xcode
 
@@ -117,3 +117,4 @@ project, then build (⌘B).
 
 [1]: https://doc.zeroc.com/display/Ice/slice2cpp+Command-Line+Options
 [2]: https://doc.zeroc.com/display/Ice/slice2objc+Command-Line+Options
+[3]: https://doc.zeroc.com/display/Ice37/Using+the+macOS+Binary+Distribution
