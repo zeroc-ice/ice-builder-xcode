@@ -77,7 +77,7 @@ to this directory when it calls the Slice compiler.
 ### Xcode Build Settings
 
 #### Ice 3.7
-The Xcode build settings are described in the [Ice 3.7 Release Notes](3).
+The Xcode build settings are described in the [Ice 3.7 Release Notes][3].
 
 #### Ice Touch
 
