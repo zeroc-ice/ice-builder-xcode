@@ -1,8 +1,7 @@
 # Ice Builder for Xcode
 
 Ice Builder for Xcode is a command line program to help compile Slice files to
-C++ or Objective-C in Xcode. It supports all recent versions of Xcode, including
-Xcode 8.
+C++ or Objective-C in Xcode. It supports all recent versions of Xcode.
 
 ## Install
 
